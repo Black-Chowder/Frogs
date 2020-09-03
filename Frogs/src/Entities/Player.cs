@@ -33,7 +33,7 @@ namespace New_Physics.Entities
 
         public static void LoadContent(ContentManager Content)
         {
-            //cursor = Content.Load<Texture2D>("Cursor");
+            cursor = Content.Load<Texture2D>("Cursor");
 
             //JumpDustSprites.LoadContent(Content);
             //PlayerSmashSprites.LoadContent(Content);
@@ -88,13 +88,19 @@ namespace New_Physics.Entities
 
         // <Attack Variables>
         private Boolean isAttacking = false;
-        private int attPhase = 1;//1 = anticipation, 2 = contact, 3 = recovery
-
-        private Hitbox attackHitboxR;
-        private Hitbox attackHitboxL;
-
-        private Hitbox attackHitboxSlam;
         // </Attack Variables>
+
+        // <Swing Variables>
+        private Boolean isSwinging = false;
+        private Boolean swingExists = false;
+        private float maxSwingLength = 30;
+
+        //Tracks center of swing
+        private float sox = 0;
+        private float soy = 0;
+        private float swingLength = 0;
+
+        // </Swing Variables>
 
 
         //Testing Variables
@@ -113,12 +119,6 @@ namespace New_Physics.Entities
             //hitboxes.Add(new Hitbox(-25, 56, this.width, 5));
 
             addTrait(new Rigidbody(this, hitboxes, false));
-
-            //Setup Attack Hitboxes
-            attackHitboxR = new Hitbox(0, 0, width * 2, height * 2);
-            attackHitboxL = new Hitbox(width * 2, height * 2, width * 2, height * 2);
-
-            attackHitboxSlam = new Hitbox(width * 2, height * 2, width * 4, height * 4);
         }
 
         public override void Update()
@@ -168,6 +168,13 @@ namespace New_Physics.Entities
             }
             slingHandler();
 
+            //Swing Handling
+            if (mouse.RightButton == ButtonState.Pressed)
+            {
+                sendSwing();
+            }
+            swingHandler();
+
 
             //  UPDATE TRAITS  //
             base.traitUpdate();  //  <<<======  UPDATE TRAITS
@@ -209,15 +216,25 @@ namespace New_Physics.Entities
                 spriteBatch.Draw(texture, new Rectangle((int)(hitbox.x - Camera.X), (int)(hitbox.y - Camera.Y), (int)(hitbox.width), (int)(hitbox.height)), Color.White);
             }
 
-            
+
 
 
             //Draws Cursor
+            spriteBatch.Draw(PlayerSprites.cursor,
+                destinationRectangle: new Rectangle((int)(mouse.X), (int)(mouse.Y), 30, 30),
+                color: Color.White);
 
             spriteBatch.End();
             
 
             spriteBatch.Begin();
+
+            if (isSwinging)
+            {
+                spriteBatch.Draw(texture,
+                    new Rectangle((int)(sox - Camera.X), (int)(soy - Camera.Y), 50, 5),
+                    Color.White);
+            }
 
 
             if (isSlinging)
@@ -250,6 +267,25 @@ namespace New_Physics.Entities
         {
             this.animation = animation;
             animator = 0;
+        }
+
+        private void sendSwing()
+        {
+            isSwinging = true;
+            sox = mouse.X + Camera.X;
+            soy = mouse.Y + Camera.Y;
+        }
+
+        private void swingHandler()
+        {
+            if (!isSwinging) return;
+
+            //Handle Swinging
+
+
+            //Release Swing
+
+            //Need to detect the difference when placing swing origin or releasing swing
         }
 
 
@@ -322,35 +358,6 @@ namespace New_Physics.Entities
                     {
                         Camera.Shake(100, 15);
                         //ParticleHandler.particles.Add(new PlayerSmash(x, y, isFacingRight));
-
-                        //Attack Handler
-                        for (int i = 0; i < EntityHandler.entities.Count; i++)
-                        {
-                            Entity entity = EntityHandler.entities[i];
-                            if (entity == this || entity.classId != "hostile") continue;
-
-                            for (int j = 0; j < ((Rigidbody)entity.getTrait("rigidbody")).hitboxes.Count(); j++)
-                            {
-                                Hitbox entityHitbox = ((Rigidbody)entity.getTrait("rigidbody")).hitboxes[j];
-
-                                //Update Hitboxes
-                                attackHitboxSlam.x = x - attackHitboxSlam.diffX;
-                                attackHitboxSlam.y = y - attackHitboxSlam.diffY;
-
-                                //Actual Collision Calculations
-                                if (Utils.rectCollision(attackHitboxSlam.x, attackHitboxSlam.y, attackHitboxSlam.width, attackHitboxSlam.height, entityHitbox.x, entityHitbox.y, entityHitbox.width, entityHitbox.height))
-                                {
-                                    if (x > entity.x)
-                                    {
-                                        ((Health)entity.getTrait("health")).Damage(1, false);
-                                    }
-                                    else
-                                    {
-                                        ((Health)entity.getTrait("health")).Damage(1, true);
-                                    }
-                                }
-                            }
-                        }
                     }
                     slingInit = false;
                 }

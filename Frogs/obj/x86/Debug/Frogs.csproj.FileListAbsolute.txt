@@ -21,3 +21,4 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\SharpDX.XInput.xml
 D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.csproj.CopyComplete
 D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.exe
 D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.pdb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Cursor.xnb

@@ -70,6 +70,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Cursor.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\Particles\" />

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Frogs.src;
+using New_Physics.Entities;
 
 namespace Frogs
 {
@@ -27,6 +29,10 @@ namespace Frogs
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            Camera.SetDimensions(graphics, 800, 600);
+
+            EntityHandler.Init();
 
             base.Initialize();
         }
@@ -63,6 +69,8 @@ namespace Frogs
                 Exit();
 
             // TODO: Add your update logic here
+            EntityHandler.Update();
+            Camera.Update();
 
             base.Update(gameTime);
         }
@@ -76,6 +84,7 @@ namespace Frogs
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            EntityHandler.Draw(spriteBatch, GraphicsDevice);
 
             base.Draw(gameTime);
         }

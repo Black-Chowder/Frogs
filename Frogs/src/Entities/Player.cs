@@ -249,7 +249,7 @@ namespace New_Physics.Entities
                     Color.Red);
 
                 spriteBatch.Draw(texture,
-                    new Rectangle((int)(testx - Camera.X), (int)(testy - Camera.Y), 10, 10),
+                    new Rectangle((int)(sox - Camera.X), (int)(soy - Camera.Y), 10, 10),
                     Color.Red);
             }
 
@@ -294,6 +294,8 @@ namespace New_Physics.Entities
             //Calculate Swing Angle
             swingAngle = (float)Math.Atan2(soy, sox);
 
+            List<Vector2> tongueEnds = new List<Vector2>();
+
             //y = mx+b
 
             //Calculate endpoint of tongue
@@ -320,15 +322,17 @@ namespace New_Physics.Entities
                     float tempy = eHitbox.y + eHitbox.height;
 
                     //Make sure is within bounds of entity hitbox
-                    
                     if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
                     {
-                        
+                        //Make sure tongue end is closer to the mouse than the player
+                        //Prevents intersection with opposite direction
                         if (Utils.getDistance(x, y, tempx, tempy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
                         {
                             Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
                             Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
                             isSwinging = true;
+
+                            tongueEnds.Add(new Vector2(tempx, tempy));
 
                             sox = tempx;
                             soy = tempy;
@@ -337,11 +341,28 @@ namespace New_Physics.Entities
                             testy = soy;
                         }
                     }
-
-                    //Find if this is closest to sling to
-                    //TODO
                 }
             }
+            Vector2 closest = new Vector2(0, 0);
+            Boolean foundOne = false;
+            //Find closest tongue end
+            for (int i = 0; i < tongueEnds.Count; i++)
+            {
+                if (!foundOne)
+                {
+                    closest = tongueEnds[i];
+                    continue;
+                }
+
+
+                if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(closest, tongueEnds[i]))
+                {
+                    closest = tongueEnds[i];
+                }
+            }
+
+            sox = closest.X;
+            soy = closest.Y;
         }
 
         private void releaseSwing()

@@ -90,6 +90,11 @@ namespace Frogs.src
             return (float)Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
         }
 
+        public static float getDistance(Vector2 point1, Vector2 point2)
+        {
+            return getDistance(point1.X, point1.Y, point2.X, point2.Y);
+        }
+
         /// <summary>
         /// Loads Sprite Sheet Into List Of Rectangles To Be Used 
         /// As Parameters In spriteBatch.Draw() as the parameter sourceRectangle.  

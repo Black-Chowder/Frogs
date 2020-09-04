@@ -316,19 +316,25 @@ namespace New_Physics.Entities
                     float m = ((y - soy) / (x - sox));
                     float b = (y - ((y - soy) / (x - sox)) * x);
 
-                    sox = ((eHitbox.y + eHitbox.height) - b)/m;
-                    soy = eHitbox.y + eHitbox.height;
-
-                    testx = sox;
-                    testy = soy;
+                    float tempx = ((eHitbox.y + eHitbox.height) - b)/m;
+                    float tempy = eHitbox.y + eHitbox.height;
 
                     //Make sure is within bounds of entity hitbox
-                    if (x > eHitbox.x && x < eHitbox.x + eHitbox.width)
+                    
+                    if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
                     {
-                        Console.WriteLine(Utils.getDistance(x, y, sox, soy) + " < " + Utils.getDistance(mouse.X - Camera.X, mouse.Y - Camera.Y, sox, soy));
-                        if (Utils.getDistance(x, y, sox, soy) < Utils.getDistance(mouse.X - Camera.X, mouse.Y - Camera.Y, sox, soy))
+                        
+                        if (Utils.getDistance(x, y, tempx, tempy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
                         {
+                            Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
+                            Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
                             isSwinging = true;
+
+                            sox = tempx;
+                            soy = tempy;
+
+                            testx = sox;
+                            testy = soy;
                         }
                     }
 

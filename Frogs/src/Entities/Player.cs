@@ -92,6 +92,9 @@ namespace New_Physics.Entities
         private float testy = 0;
         private float testx = 0;
 
+        private Vector2 prePos = new Vector2(0, 0);
+        private Vector2 preDel = new Vector2(0, 0);
+
         private Boolean swingInit = true;
 
         // </Swing Variables>
@@ -161,6 +164,15 @@ namespace New_Physics.Entities
             }
             slingHandler();
 
+
+
+            prePos = new Vector2(x, y);
+            preDel = new Vector2(dx, dy);
+
+            //  UPDATE TRAITS  //
+            base.traitUpdate();  //  <<<======  UPDATE TRAITS
+            //  UPDATE TRAITS  //
+
             //Swing Handling
             if (mouse.RightButton == ButtonState.Pressed && swingInit)
             {
@@ -174,16 +186,12 @@ namespace New_Physics.Entities
                     sendSwing();
                 }
             }
+
             else if (mouse.RightButton != ButtonState.Pressed)
             {
                 swingInit = true;
             }
             swingHandler();
-
-
-            //  UPDATE TRAITS  //
-            base.traitUpdate();  //  <<<======  UPDATE TRAITS
-            //  UPDATE TRAITS  //
 
 
 
@@ -363,6 +371,7 @@ namespace New_Physics.Entities
 
             sox = closest.X;
             soy = closest.Y;
+            tongueLength = Utils.getDistance(sox, soy, x, y);
         }
 
         private void releaseSwing()
@@ -375,11 +384,83 @@ namespace New_Physics.Entities
             if (!isSwinging) return;
 
             //Handle Swinging
+            float diffx = sox - x;
+            float diffy = soy - y;
 
 
-            //Release Swing
+            float angle = (float)Math.Atan2(diffy, diffx);
 
-            //Need to detect the difference when placing swing origin or releasing swing
+            Vector2 vector = new Vector2(diffx, diffy);
+
+            vector.Normalize();
+
+            vector.X *= tongueLength;
+            vector.Y *= tongueLength;
+
+            x = sox - vector.X;
+            y = soy - vector.Y;
+
+            float posDiffX = x - prePos.X;
+            float posDiffY = y - prePos.Y;
+
+            Vector2 diff = new Vector2(posDiffX, posDiffY);
+
+            float newAng = (float)Math.Atan2(diff.Y, diff.X);
+
+            dx = (float)(Math.Cos(newAng) * preDel.Length());
+            dy = (float)(Math.Sin(newAng) * preDel.Length());
+
+            
+
+
+            /*
+                float distanceToGrapple = sqrt((x-grappleX)^2 + (y-grappleY)^2);
+                if (distanceToGrapple < grappleDistanceThreshold){
+                  angle = atan2(y-grappleY,x-grappleX);
+                  grappling = true;
+                }
+
+                if (grappling){
+                  if (key[KEY_A]){
+                    angleVel += grappleForce;
+                  }
+                  if (key[KEY_D]){
+                    angleVel -= grappleForce;
+                  }
+                  angleVel = coterminal(angleVel) // see bottom for the function
+  
+                  // GRAVITY (this is not a very good gravity thing for angles, but I think it should work.
+                  float targetGravityAngle = 3*PI/2; // make sure its between 0 & 2PI
+                  // if gravity did its thing, what would the resting angle be
+                  float angleDifference = targetGravityAngle - angle;
+                  if (angleDifference < 0 || angleDifference > PI){
+                    angleVel -= grappleGravity
+                  }else{
+                    angleVel += grappleGravity
+                  }
+
+                  angle += angleVel;
+
+                  angle = coterminal(angle); // not necessary unless you use the angle variable for other things
+  
+                  velY += sin(angle)*distanceToGrapple - y;
+                  velX += cos(angle)*distanceToGrapple - x;
+                }else{
+                  // normal moving script goes here
+                  if (key[KEY_W]){
+                    velY += force;
+                  }
+                  //etc.
+                }
+                private float coterminal(float radian){ 
+                // returns value equivelant to entered value, but it is now between 0 and 2PI.
+                  while(radian < 0 || radian > 2*PI){
+                    radian += radian < 0 ? 2*PI : -2*PI; // essentially a 1 line if statement.
+                  }
+                }
+
+            */
+
         }
 
 

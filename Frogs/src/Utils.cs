@@ -95,6 +95,15 @@ namespace Frogs.src
             return getDistance(point1.X, point1.Y, point2.X, point2.Y);
         }
 
+        public static float coterminal(float radian)
+        {
+            while (radian < 0 || radian > 2 * Math.PI)
+            {
+                radian += radian < 0 ? (float)(2 * Math.PI) : (float)(-2 * Math.PI);
+            }
+            return radian;
+        }
+
         /// <summary>
         /// Loads Sprite Sheet Into List Of Rectangles To Be Used 
         /// As Parameters In spriteBatch.Draw() as the parameter sourceRectangle.  

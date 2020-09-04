@@ -75,17 +75,6 @@ namespace New_Physics.Entities
         private Boolean shouldSlam = false;
         // </Player Slingshot>
 
-        // <Hanging Variables>
-        private Boolean isHanging = false;
-        private Boolean hangingRight = false;
-        private int hangingEntity;
-        private int hangingHitbox;
-        private int selfHangingHitbox;
-
-        private float hangingX;
-        private float hangingY;
-        // </Hanging Variables>
-
         // <Attack Variables>
         private Boolean isAttacking = false;
         // </Attack Variables>
@@ -99,6 +88,8 @@ namespace New_Physics.Entities
         private float sox = 0;
         private float soy = 0;
         private float swingLength = 0;
+
+        private Boolean swingInit = true;
 
         // </Swing Variables>
 
@@ -163,15 +154,26 @@ namespace New_Physics.Entities
             }
             else if (mouse.LeftButton != ButtonState.Pressed)
             {
-                if (isSlinging) isHanging = false;
                 releaseSling();
             }
             slingHandler();
 
             //Swing Handling
-            if (mouse.RightButton == ButtonState.Pressed)
+            if (mouse.RightButton == ButtonState.Pressed && swingInit)
             {
-                sendSwing();
+                swingInit = false;
+                if (isSwinging)
+                {
+                    releaseSwing();
+                }
+                else
+                {
+                    sendSwing();
+                }
+            }
+            else if (mouse.RightButton != ButtonState.Pressed)
+            {
+                swingInit = true;
             }
             swingHandler();
 
@@ -274,6 +276,11 @@ namespace New_Physics.Entities
             isSwinging = true;
             sox = mouse.X + Camera.X;
             soy = mouse.Y + Camera.Y;
+        }
+
+        private void releaseSwing()
+        {
+            isSwinging = false;
         }
 
         private void swingHandler()

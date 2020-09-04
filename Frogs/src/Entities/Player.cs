@@ -288,7 +288,6 @@ namespace New_Physics.Entities
 
         private void sendSwing()
         {
-            isSwinging = true;
             sox = mouse.X + Camera.X;
             soy = mouse.Y + Camera.Y;
 
@@ -317,8 +316,24 @@ namespace New_Physics.Entities
                     float m = ((y - soy) / (x - sox));
                     float b = (y - ((y - soy) / (x - sox)) * x);
 
-                    testx = ((eHitbox.y + eHitbox.height) - b)/m;
-                    testy = eHitbox.y + eHitbox.height;
+                    sox = ((eHitbox.y + eHitbox.height) - b)/m;
+                    soy = eHitbox.y + eHitbox.height;
+
+                    testx = sox;
+                    testy = soy;
+
+                    //Make sure is within bounds of entity hitbox
+                    if (x > eHitbox.x && x < eHitbox.x + eHitbox.width)
+                    {
+                        Console.WriteLine(Utils.getDistance(x, y, sox, soy) + " < " + Utils.getDistance(mouse.X - Camera.X, mouse.Y - Camera.Y, sox, soy));
+                        if (Utils.getDistance(x, y, sox, soy) < Utils.getDistance(mouse.X - Camera.X, mouse.Y - Camera.Y, sox, soy))
+                        {
+                            isSwinging = true;
+                        }
+                    }
+
+                    //Find if this is closest to sling to
+                    //TODO
                 }
             }
         }

@@ -81,13 +81,16 @@ namespace New_Physics.Entities
 
         // <Swing Variables>
         private Boolean isSwinging = false;
-        private Boolean swingExists = false;
-        private float maxSwingLength = 30;
 
         //Tracks center of swing
         private float sox = 0;
         private float soy = 0;
-        private float swingLength = 0;
+        private float swingAngle = 0; // Measured in radians
+        private float tongueLength = 0;
+        private float maxTongueLength = 0;
+
+        private float testy = 0;
+        private float testx = 0;
 
         private Boolean swingInit = true;
 
@@ -226,6 +229,8 @@ namespace New_Physics.Entities
                 destinationRectangle: new Rectangle((int)(mouse.X), (int)(mouse.Y), 30, 30),
                 color: Color.White);
 
+
+
             spriteBatch.End();
             
 
@@ -236,6 +241,16 @@ namespace New_Physics.Entities
                 spriteBatch.Draw(texture,
                     new Rectangle((int)(sox - Camera.X), (int)(soy - Camera.Y), 50, 5),
                     Color.White);
+
+                //Draw Tongue
+                Utils.DrawLine(spriteBatch,
+                    new Vector2((int)(sox - Camera.X), (int)(soy - Camera.Y)),
+                    new Vector2((int)(x - Camera.X), (int)(y - Camera.Y)),
+                    Color.Red);
+
+                spriteBatch.Draw(texture,
+                    new Rectangle((int)(testx - Camera.X), (int)(testy - Camera.Y), 10, 10),
+                    Color.Red);
             }
 
 
@@ -276,6 +291,36 @@ namespace New_Physics.Entities
             isSwinging = true;
             sox = mouse.X + Camera.X;
             soy = mouse.Y + Camera.Y;
+
+            //Calculate Swing Angle
+            swingAngle = (float)Math.Atan2(soy, sox);
+
+            //y = mx+b
+
+            //Calculate endpoint of tongue
+            for (int i = 0; i < EntityHandler.entities.Count; i++)
+            {
+                //Skip if not a platform
+                if (EntityHandler.entities[i].classId != "platform") continue;
+                
+                Entity entity = EntityHandler.entities[i];
+                Rigidbody entityR = ((Rigidbody)entity.getTrait("rigidbody"));
+
+                for (int j = 0; j < entityR.hitboxes.Count; j++)
+                {
+                    Hitbox eHitbox = entityR.hitboxes[j];
+                    //Line Calculations
+                    //m = ((y - soy)/(x - sox))
+                    //b = (y - ((y - soy)/(x - sox))*X)
+                    //f(actX) = ((y - soy)/(x - sox))*actX + (y - ((y - soy)/(x - sox))*X)
+
+                    float m = ((y - soy) / (x - sox));
+                    float b = (y - ((y - soy) / (x - sox)) * x);
+
+                    testx = ((eHitbox.y + eHitbox.height) - b)/m;
+                    testy = eHitbox.y + eHitbox.height;
+                }
+            }
         }
 
         private void releaseSwing()

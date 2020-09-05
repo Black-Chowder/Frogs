@@ -13,14 +13,31 @@ namespace New_Physics.Entities
 {
     public class Platform : Entity
     {
-        public Platform(float x, float y, float width, float height) : base("platform", x, y)
+        public Boolean sRight = false;
+        public Boolean sLeft = false;
+        public Boolean sTop = false;
+        public Boolean sBottom = false;
+
+        public Platform(float x, float y, float width, float height,
+            Boolean sRight = true, Boolean sLeft = true, Boolean sTop = true, Boolean sBottom = true) : base("platform", x, y)
+        {
+            Init(x, y, width, height, sRight, sLeft, sTop, sBottom);
+        }
+
+        private void Init(float x, float y, float width, float height,
+            Boolean sRight, Boolean sLeft, Boolean sTop, Boolean sBottom)
         {
             base.width = width;
             base.height = height;
 
-            //addTrait(new Friction(this, 1000));
             addTrait(new Rigidbody(this, true));
-        } 
+
+            this.sRight = sRight;
+            this.sLeft = sLeft;
+            this.sTop = sTop;
+            this.sBottom = sBottom;
+        }
+
 
         public override void Update()
         {

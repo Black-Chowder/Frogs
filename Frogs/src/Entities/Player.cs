@@ -257,7 +257,7 @@ namespace New_Physics.Entities
                     Color.Red);
 
                 spriteBatch.Draw(texture,
-                    new Rectangle((int)(sox - Camera.X), (int)(soy - Camera.Y), 10, 10),
+                    new Rectangle((int)(sox - 5 - Camera.X), (int)(soy - 5 - Camera.Y), 10, 10),
                     Color.Red);
             }
 
@@ -333,13 +333,15 @@ namespace New_Physics.Entities
 
                     tempx = eHitbox.x + eHitbox.width;
                     tempy = m * (eHitbox.x + eHitbox.width) + b;
-
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Right = " + ((Platform)entity).sRight);
                     if (tempy > eHitbox.y && tempy < eHitbox.y + eHitbox.height)
                     {
                         if (Utils.getDistance(x, y, tempx, tempy) > 
                             Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
                         {
                             isSwinging = true;
+                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
                             tongueEnds.Add(new Vector2(tempx, tempy));
 
                             sox = tempx;
@@ -353,14 +355,14 @@ namespace New_Physics.Entities
                     //Collision With Left Of Hitboxes
                     tempx = (eHitbox.x);
                     tempy = m * eHitbox.x + b;
-
+                    Console.WriteLine("Left = " + ((Platform)entity).sLeft);
                     if (tempy > eHitbox.y && tempy < eHitbox.y + eHitbox.height)
                     {
                         if (Utils.getDistance(x, y, tempx, tempy) >
                             Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
                         {
                             isSwinging = true;
-
+                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
                             tongueEnds.Add(new Vector2(tempx, tempy));
 
                             sox = tempx;
@@ -374,7 +376,7 @@ namespace New_Physics.Entities
                     //Collision With Top Of Hitboxes
                     tempx = (eHitbox.y - b) / m;
                     tempy = eHitbox.y;
-
+                    Console.WriteLine("Top = " + ((Platform)entity).sTop);
                     if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
                     {
                         if (Utils.getDistance(x, y, tempx, tempy) > 
@@ -397,7 +399,7 @@ namespace New_Physics.Entities
                     //Collision With Bottom Of Hitboxes
                     tempx = ((eHitbox.y + eHitbox.height) - b)/m;
                     tempy = eHitbox.y + eHitbox.height;
-
+                    Console.WriteLine("Bottom = " + ((Platform)entity).sBottom);
                     //Make sure is within bounds of entity hitbox
                     if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
                     {
@@ -428,14 +430,17 @@ namespace New_Physics.Entities
             {
                 if (!foundOne)
                 {
+                    //Console.WriteLine("Found One: " + tongueEnds[i] + " | Distance = " + Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y));
                     closest = tongueEnds[i];
                     foundOne = true;
                     continue;
                 }
 
-
-                if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(closest, tongueEnds[i]))
+                //Console.WriteLine("Doing The Rounds. . . | " + Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) + " < " +
+                //    Utils.getDistance(closest, tongueEnds[i]));
+                if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(x, y, closest.X, closest.Y))
                 {
+                    //Console.WriteLine("Happening");
                     closest = tongueEnds[i];
                 }
             }

@@ -326,8 +326,35 @@ namespace New_Physics.Entities
                     float m = ((y - soy) / (x - sox));
                     float b = (y - ((y - soy) / (x - sox)) * x);
 
-                    float tempx = ((eHitbox.y + eHitbox.height) - b)/m;
-                    float tempy = eHitbox.y + eHitbox.height;
+                    float tempx = 0;
+                    float tempy = 0;
+
+                    //Collision With Top Of Hitboxes
+                    tempx = (eHitbox.y - b) / m;
+                    tempy = eHitbox.y;
+
+                    if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
+                    {
+                        if (Utils.getDistance(x, y, tempx, tempy) > 
+                            Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
+                        {
+                            isSwinging = true;
+
+                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
+                            tongueEnds.Add(new Vector2(tempx, tempy));
+
+                            sox = tempx;
+                            soy = tempy;
+
+                            testx = sox;
+                            testy = soy;
+                        }
+                    }
+
+
+                    //Collision With Bottom Of Hitboxes
+                    tempx = ((eHitbox.y + eHitbox.height) - b)/m;
+                    tempy = eHitbox.y + eHitbox.height;
 
                     //Make sure is within bounds of entity hitbox
                     if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
@@ -336,10 +363,11 @@ namespace New_Physics.Entities
                         //Prevents intersection with opposite direction
                         if (Utils.getDistance(x, y, tempx, tempy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
                         {
-                            Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
-                            Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
+                            //Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
+                            //Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
                             isSwinging = true;
 
+                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
                             tongueEnds.Add(new Vector2(tempx, tempy));
 
                             sox = tempx;
@@ -359,6 +387,7 @@ namespace New_Physics.Entities
                 if (!foundOne)
                 {
                     closest = tongueEnds[i];
+                    foundOne = true;
                     continue;
                 }
 
@@ -368,7 +397,8 @@ namespace New_Physics.Entities
                     closest = tongueEnds[i];
                 }
             }
-
+            //Console.WriteLine("Tongue End Chosen: " + closest.X + ", " + closest.Y + " | Distance = " + Utils.getDistance(closest, new Vector2(x, y)));
+            //Console.WriteLine("");
             sox = closest.X;
             soy = closest.Y;
             tongueLength = Utils.getDistance(sox, soy, x, y);

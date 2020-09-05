@@ -329,6 +329,27 @@ namespace New_Physics.Entities
                     float tempx = 0;
                     float tempy = 0;
 
+                    //Collision With Right Of Hitboxes
+
+                    tempx = eHitbox.x + eHitbox.width;
+                    tempy = m * (eHitbox.x + eHitbox.width) + b;
+
+                    if (tempy > eHitbox.y && tempy < eHitbox.y + eHitbox.height)
+                    {
+                        if (Utils.getDistance(x, y, tempx, tempy) > 
+                            Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
+                        {
+                            isSwinging = true;
+                            tongueEnds.Add(new Vector2(tempx, tempy));
+
+                            sox = tempx;
+                            soy = tempy;
+
+                            testx = sox;
+                            testy = soy;
+                        }
+                    }
+
                     //Collision With Left Of Hitboxes
                     tempx = (eHitbox.x);
                     tempy = m * eHitbox.x + b;

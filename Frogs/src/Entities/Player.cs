@@ -108,7 +108,7 @@ namespace New_Physics.Entities
             width = 50;
             height = 50;
             addTrait(new Gravity(this, 1f));
-            addTrait(new Friction(this, (float)1.5 ,(float)1));
+            addTrait(new Friction(this, (float)1.5 ,(float)1.02));
             addTrait(new Timer(this, "timer", 300));
 
             List<Hitbox> hitboxes = new List<Hitbox>();
@@ -383,12 +383,11 @@ namespace New_Physics.Entities
         {
             if (!isSwinging) return;
 
+            Gravity gravity = (Gravity)getTrait("gravity");
+
             //Handle Swinging
             float diffx = sox - x;
             float diffy = soy - y;
-
-
-            float angle = (float)Math.Atan2(diffy, diffx);
 
             Vector2 vector = new Vector2(diffx, diffy);
 
@@ -407,8 +406,9 @@ namespace New_Physics.Entities
 
             float newAng = (float)Math.Atan2(diff.Y, diff.X);
 
+
             dx = (float)(Math.Cos(newAng) * preDel.Length());
-            dy = (float)(Math.Sin(newAng) * preDel.Length());
+            dy = (float)(Math.Sin(newAng) * preDel.Length()) + gravity.weight;
 
             
 

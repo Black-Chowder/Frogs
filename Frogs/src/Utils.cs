@@ -95,6 +95,8 @@ namespace Frogs.src
             return getDistance(point1.X, point1.Y, point2.X, point2.Y);
         }
 
+        //Trevor's Coterminal Code
+        //Returns equivelant angle in range 0 - 2pi
         public static float coterminal(float radian)
         {
             while (radian < 0 || radian > 2 * Math.PI)

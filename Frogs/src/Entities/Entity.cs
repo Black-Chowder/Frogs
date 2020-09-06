@@ -29,7 +29,7 @@ namespace New_Physics.Entities
             //entities.Add(new Block(200, 100, 50, 50, (float)5, (float)1.5));
             //entities.Add(new Platform(500, 200, 1000, 20));
             //entities.Add(new Block(600, 150, 50, 50, (float)1.8, (float)1));
-            entities.Add(new Platform(400, 0, 100, 100, sBottom: false));
+            entities.Add(new Platform(400, 0, 100, 100));
             //entities.Add(new TestEnemy(700, 300));
             //entities.Add(new Platform(600, 200, 50, 50));
         }

@@ -88,6 +88,9 @@ namespace New_Physics.Entities
         private float tongueLength = 0;
         private float maxTongueLength = 0;
 
+        private const float tongueRetractionRate = 1;
+        private const float tongueExtentionRate = 1;
+
         private Vector2 prePos = new Vector2(0, 0);
         private Vector2 preDel = new Vector2(0, 0);
 
@@ -120,18 +123,11 @@ namespace New_Physics.Entities
             KeyboardState keys = Keyboard.GetState();
             mouse = Mouse.GetState();
 
-            if (keys.IsKeyDown(Keys.W))
-            {
-                dy -= speed * tm;
-            }
+
             if (keys.IsKeyDown(Keys.A))
             {
                 isFacingRight = false;
                 dx -= speed * tm;
-            }
-            if (keys.IsKeyDown(Keys.S))
-            {
-                dy += speed * tm;
             }
             if (keys.IsKeyDown(Keys.D))
             {
@@ -169,6 +165,10 @@ namespace New_Physics.Entities
                 else sendSwing();
             }
             else if (mouse.RightButton != ButtonState.Pressed) swingInit = true;
+
+            //Extend/Retract Tongue
+            if (keys.IsKeyDown(Keys.W)) retractTongue();
+            if (keys.IsKeyDown(Keys.S)) extendTongue();
 
 
             //Save current position before moving
@@ -415,6 +415,16 @@ namespace New_Physics.Entities
             sox = closest.X;
             soy = closest.Y;
             tongueLength = Utils.getDistance(sox, soy, x, y);
+        }
+
+        private void extendTongue()
+        {
+            tongueLength += tongueExtentionRate;
+        }
+
+        private void retractTongue()
+        {
+            tongueLength -= tongueRetractionRate;
         }
 
 

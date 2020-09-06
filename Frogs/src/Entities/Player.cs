@@ -124,16 +124,7 @@ namespace New_Physics.Entities
             mouse = Mouse.GetState();
 
 
-            if (keys.IsKeyDown(Keys.A))
-            {
-                isFacingRight = false;
-                dx -= speed * tm;
-            }
-            if (keys.IsKeyDown(Keys.D))
-            {
-                isFacingRight = true;
-                dx += speed * tm;
-            }
+            
 
             //Modifying time
             if (keys.IsKeyDown(Keys.Down)) EntityHandler.modTm(.01f);
@@ -169,6 +160,10 @@ namespace New_Physics.Entities
             //Extend/Retract Tongue
             if (keys.IsKeyDown(Keys.W)) retractTongue();
             if (keys.IsKeyDown(Keys.S)) extendTongue();
+
+            //Suggest lean while swinging
+            if (keys.IsKeyDown(Keys.A)) swingLean(false);
+            if (keys.IsKeyDown(Keys.D)) swingLean(true);
 
 
             //Save current position before moving
@@ -429,6 +424,18 @@ namespace New_Physics.Entities
         private void retractTongue()
         {
             tongueLength -= tongueRetractionRate;
+        }
+
+        private void swingLean(Boolean isGoingRight)
+        {
+            if (((Gravity)getTrait("gravity")).grounded) return;
+            if (isGoingRight)
+            {
+                dx += speed * tm;
+                return;
+            }
+
+            dx -= speed * tm;
         }
 
 

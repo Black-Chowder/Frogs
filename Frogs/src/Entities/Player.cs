@@ -513,6 +513,9 @@ namespace New_Physics.Entities
 
             isSlinging = false;
 
+            //RETRACTS TONGUE \/ \/ \/
+            isSwinging = false;
+
             if (dx > 0) isFacingRight = true;
             else isFacingRight = false;
 

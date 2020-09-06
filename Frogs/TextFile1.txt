@@ -1,0 +1,40 @@
+﻿  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //Collision With Bottom Of Hitboxes
+    tempx = ((eHitbox.y + eHitbox.height) - b)/m;
+    tempy = eHitbox.y + eHitbox.height;
+    Console.WriteLine("Bottom = " + ((Platform)entity).sBottom);
+    //Make sure is within bounds of entity hitbox
+    if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
+    {
+        //Make sure tongue end is closer to the mouse than the player
+        //Prevents intersection with opposite direction
+        if (Utils.getDistance(x, y, tempx, tempy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
+        {
+            //Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
+            //Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
+            isSwinging = true;
+
+            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
+            tongueEnds.Add(new Vector2(tempx, tempy));
+
+            sox = tempx;
+            soy = tempy;
+
+            testx = sox;
+            testy = soy;
+        }
+    }

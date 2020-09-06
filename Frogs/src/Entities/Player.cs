@@ -85,12 +85,8 @@ namespace New_Physics.Entities
         //Tracks center of swing
         private float sox = 0;
         private float soy = 0;
-        private float swingAngle = 0; // Measured in radians
         private float tongueLength = 0;
         private float maxTongueLength = 0;
-
-        private float testy = 0;
-        private float testx = 0;
 
         private Vector2 prePos = new Vector2(0, 0);
         private Vector2 preDel = new Vector2(0, 0);
@@ -165,7 +161,18 @@ namespace New_Physics.Entities
             slingHandler();
 
 
+            //Swing Handling
+            if (mouse.RightButton == ButtonState.Pressed && swingInit)
+            {
+                swingInit = false;
+                if (isSwinging) releaseSwing();
+                else sendSwing();
+            }
+            else if (mouse.RightButton != ButtonState.Pressed) swingInit = true;
 
+
+            //Save current position before moving
+            //Used for swing variables to calculate velocity
             prePos = new Vector2(x, y);
             preDel = new Vector2(dx, dy);
 
@@ -173,24 +180,7 @@ namespace New_Physics.Entities
             base.traitUpdate();  //  <<<======  UPDATE TRAITS
             //  UPDATE TRAITS  //
 
-            //Swing Handling
-            if (mouse.RightButton == ButtonState.Pressed && swingInit)
-            {
-                swingInit = false;
-                if (isSwinging)
-                {
-                    releaseSwing();
-                }
-                else
-                {
-                    sendSwing();
-                }
-            }
-
-            else if (mouse.RightButton != ButtonState.Pressed)
-            {
-                swingInit = true;
-            }
+            //Handle Swinging From Tongue
             swingHandler();
 
 
@@ -299,12 +289,7 @@ namespace New_Physics.Entities
             sox = mouse.X + Camera.X;
             soy = mouse.Y + Camera.Y;
 
-            //Calculate Swing Angle
-            swingAngle = (float)Math.Atan2(soy, sox);
-
             List<Vector2> tongueEnds = new List<Vector2>();
-
-            //y = mx+b
 
             //Calculate endpoint of tongue
             for (int i = 0; i < EntityHandler.entities.Count; i++)
@@ -326,126 +311,65 @@ namespace New_Physics.Entities
                     float m = ((y - soy) / (x - sox));
                     float b = (y - ((y - soy) / (x - sox)) * x);
 
-                    float tempx = 0;
-                    float tempy = 0;
-
                     //Collision With Right Of Hitboxes
-
-                    tempx = eHitbox.x + eHitbox.width;
-                    tempy = m * (eHitbox.x + eHitbox.width) + b;
-                    Console.WriteLine("\n");
-                    Console.WriteLine("Right = " + ((Platform)entity).sRight);
-                    if (tempy > eHitbox.y && tempy < eHitbox.y + eHitbox.height)
+                    sox = eHitbox.x + eHitbox.width;
+                    soy = m * (eHitbox.x + eHitbox.width) + b;
+                    if (soy > eHitbox.y && soy < eHitbox.y + eHitbox.height && 
+                        Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        if (Utils.getDistance(x, y, tempx, tempy) > 
-                            Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
-                        {
-                            isSwinging = true;
-                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
-                            tongueEnds.Add(new Vector2(tempx, tempy));
-
-                            sox = tempx;
-                            soy = tempy;
-
-                            testx = sox;
-                            testy = soy;
-                        }
+                        isSwinging = true;
+                        tongueEnds.Add(new Vector2(sox, soy));
                     }
 
                     //Collision With Left Of Hitboxes
-                    tempx = (eHitbox.x);
-                    tempy = m * eHitbox.x + b;
-                    Console.WriteLine("Left = " + ((Platform)entity).sLeft);
-                    if (tempy > eHitbox.y && tempy < eHitbox.y + eHitbox.height)
+                    sox = (eHitbox.x);
+                    soy = m * eHitbox.x + b;
+                    if (soy > eHitbox.y && soy < eHitbox.y + eHitbox.height && 
+                        Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        if (Utils.getDistance(x, y, tempx, tempy) >
-                            Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
-                        {
-                            isSwinging = true;
-                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
-                            tongueEnds.Add(new Vector2(tempx, tempy));
-
-                            sox = tempx;
-                            soy = tempy;
-
-                            testx = sox;
-                            testy = soy;
-                        }
+                        isSwinging = true;
+                        tongueEnds.Add(new Vector2(sox, soy));
                     }
 
                     //Collision With Top Of Hitboxes
-                    tempx = (eHitbox.y - b) / m;
-                    tempy = eHitbox.y;
-                    Console.WriteLine("Top = " + ((Platform)entity).sTop);
-                    if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
+                    sox = (eHitbox.y - b) / m;
+                    soy = eHitbox.y;
+                    if (sox > eHitbox.x && sox < eHitbox.x + eHitbox.width &&
+                        Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        if (Utils.getDistance(x, y, tempx, tempy) > 
-                            Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
-                        {
-                            isSwinging = true;
-
-                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
-                            tongueEnds.Add(new Vector2(tempx, tempy));
-
-                            sox = tempx;
-                            soy = tempy;
-
-                            testx = sox;
-                            testy = soy;
-                        }
+                        isSwinging = true;
+                        tongueEnds.Add(new Vector2(sox, soy));
                     }
 
-
                     //Collision With Bottom Of Hitboxes
-                    tempx = ((eHitbox.y + eHitbox.height) - b)/m;
-                    tempy = eHitbox.y + eHitbox.height;
-                    Console.WriteLine("Bottom = " + ((Platform)entity).sBottom);
+                    sox = ((eHitbox.y + eHitbox.height) - b)/m;
+                    soy = eHitbox.y + eHitbox.height;
                     //Make sure is within bounds of entity hitbox
-                    if (tempx > eHitbox.x && tempx < eHitbox.x + eHitbox.width)
+                    if (sox > eHitbox.x && sox < eHitbox.x + eHitbox.width
+                        && Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        //Make sure tongue end is closer to the mouse than the player
-                        //Prevents intersection with opposite direction
-                        if (Utils.getDistance(x, y, tempx, tempy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy))
-                        {
-                            //Console.WriteLine(eHitbox.x + " > " + tempx + " > " + (eHitbox.x + eHitbox.width));
-                            //Console.WriteLine(Utils.getDistance(x, y, tempx, tempy) + " > " + Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, tempx, tempy) + " \n");
-                            isSwinging = true;
-
-                            //Console.WriteLine("Tongue End Added: " + tempx + ", " + tempy + " | Distance = " + Utils.getDistance(tempx, tempy, x, y));
-                            tongueEnds.Add(new Vector2(tempx, tempy));
-
-                            sox = tempx;
-                            soy = tempy;
-
-                            testx = sox;
-                            testy = soy;
-                        }
+                        isSwinging = true;
+                        tongueEnds.Add(new Vector2(sox, soy));
                     }
                 }
             }
+
+            //Find closest tongue end to player
             Vector2 closest = new Vector2(0, 0);
             Boolean foundOne = false;
-            //Find closest tongue end
             for (int i = 0; i < tongueEnds.Count; i++)
             {
                 if (!foundOne)
                 {
-                    //Console.WriteLine("Found One: " + tongueEnds[i] + " | Distance = " + Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y));
                     closest = tongueEnds[i];
                     foundOne = true;
                     continue;
                 }
 
-                //Console.WriteLine("Doing The Rounds. . . | " + Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) + " < " +
-                //    Utils.getDistance(closest, tongueEnds[i]));
-                if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(x, y, closest.X, closest.Y))
-                {
-                    //Console.WriteLine("Happening");
-                    closest = tongueEnds[i];
-                }
+                if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(x, y, closest.X, closest.Y)) closest = tongueEnds[i];
+
             }
-            //Console.WriteLine("Tongue End Chosen: " + closest.X + ", " + closest.Y + " | Distance = " + Utils.getDistance(closest, new Vector2(x, y)));
-            //Console.WriteLine("");
+
             sox = closest.X;
             soy = closest.Y;
             tongueLength = Utils.getDistance(sox, soy, x, y);
@@ -459,85 +383,29 @@ namespace New_Physics.Entities
         private void swingHandler()
         {
             if (!isSwinging) return;
-
             Gravity gravity = (Gravity)getTrait("gravity");
 
             //Handle Swinging
-            float diffx = sox - x;
-            float diffy = soy - y;
 
-            Vector2 vector = new Vector2(diffx, diffy);
-
+            //Set difference between tongue end and player position to unit circle(normalize)
+            Vector2 vector = new Vector2(sox - x, soy - y);
             vector.Normalize();
-
+            //Move player to point along circle scaled to tongue length
             vector.X *= tongueLength;
             vector.Y *= tongueLength;
 
+            //Move player
             x = sox - vector.X;
             y = soy - vector.Y;
 
-            float posDiffX = x - prePos.X;
-            float posDiffY = y - prePos.Y;
+            //Shift Velocity Along Circle
+            //Find difference between where player was and where it is
+            //Rotates Velocity
+            float newAng = (float)Math.Atan2(y - prePos.Y, x - prePos.X);
 
-            Vector2 diff = new Vector2(posDiffX, posDiffY);
-
-            float newAng = (float)Math.Atan2(diff.Y, diff.X);
-
-
+            //Set velocities to new re-positioned velocities
             dx = (float)(Math.Cos(newAng) * preDel.Length());
             dy = (float)(Math.Sin(newAng) * preDel.Length()) + gravity.weight;
-
-            
-
-
-            /*
-                float distanceToGrapple = sqrt((x-grappleX)^2 + (y-grappleY)^2);
-                if (distanceToGrapple < grappleDistanceThreshold){
-                  angle = atan2(y-grappleY,x-grappleX);
-                  grappling = true;
-                }
-
-                if (grappling){
-                  if (key[KEY_A]){
-                    angleVel += grappleForce;
-                  }
-                  if (key[KEY_D]){
-                    angleVel -= grappleForce;
-                  }
-                  angleVel = coterminal(angleVel) // see bottom for the function
-  
-                  // GRAVITY (this is not a very good gravity thing for angles, but I think it should work.
-                  float targetGravityAngle = 3*PI/2; // make sure its between 0 & 2PI
-                  // if gravity did its thing, what would the resting angle be
-                  float angleDifference = targetGravityAngle - angle;
-                  if (angleDifference < 0 || angleDifference > PI){
-                    angleVel -= grappleGravity
-                  }else{
-                    angleVel += grappleGravity
-                  }
-
-                  angle += angleVel;
-
-                  angle = coterminal(angle); // not necessary unless you use the angle variable for other things
-  
-                  velY += sin(angle)*distanceToGrapple - y;
-                  velX += cos(angle)*distanceToGrapple - x;
-                }else{
-                  // normal moving script goes here
-                  if (key[KEY_W]){
-                    velY += force;
-                  }
-                  //etc.
-                }
-                private float coterminal(float radian){ 
-                // returns value equivelant to entered value, but it is now between 0 and 2PI.
-                  while(radian < 0 || radian > 2*PI){
-                    radian += radian < 0 ? 2*PI : -2*PI; // essentially a 1 line if statement.
-                  }
-                }
-
-            */
-
         }
 
 

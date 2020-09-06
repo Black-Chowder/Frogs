@@ -426,7 +426,9 @@ namespace New_Physics.Entities
 
         private void swingHandler()
         {
-            if (!isSwinging) return;
+            //Doesn't run if player is within where it should be or isn't swinging
+            if (!isSwinging || Utils.circlePointCollision(x, y, sox, soy, tongueLength)) return;
+
             Gravity gravity = (Gravity)getTrait("gravity");
 
             //Handle Swinging

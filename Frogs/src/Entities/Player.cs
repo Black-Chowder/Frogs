@@ -86,7 +86,7 @@ namespace New_Physics.Entities
         private float sox = 0;
         private float soy = 0;
         private float tongueLength = 0;
-        private float maxTongueLength = 0;
+        private float maxTongueLength = 500;
 
         private const float tongueRetractionRate = 1;
         private const float tongueExtentionRate = 1;
@@ -415,11 +415,15 @@ namespace New_Physics.Entities
             sox = closest.X;
             soy = closest.Y;
             tongueLength = Utils.getDistance(sox, soy, x, y);
+
+            //Doesn't make tongue if tongue is over max tongue length
+            if (tongueLength > maxTongueLength)isSwinging = false;
         }
 
         private void extendTongue()
         {
             tongueLength += tongueExtentionRate;
+            if (tongueLength > maxTongueLength) tongueLength = maxTongueLength;
         }
 
         private void retractTongue()

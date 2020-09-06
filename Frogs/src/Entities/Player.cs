@@ -311,14 +311,17 @@ namespace New_Physics.Entities
                     float m = ((y - soy) / (x - sox));
                     float b = (y - ((y - soy) / (x - sox)) * x);
 
+                    //Tracks tongues attached to this specific hitbox
+                    //Z tracks the side it's attached to.  0:right, 1:left, 2:top, 3:bottom
+                    List<Vector3> tonguesOnHitbox = new List<Vector3>();
+
                     //Collision With Right Of Hitboxes
                     sox = eHitbox.x + eHitbox.width;
                     soy = m * (eHitbox.x + eHitbox.width) + b;
                     if (soy > eHitbox.y && soy < eHitbox.y + eHitbox.height && 
                         Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        isSwinging = true;
-                        tongueEnds.Add(new Vector2(sox, soy));
+                        tonguesOnHitbox.Add(new Vector3(sox, soy, 0));
                     }
 
                     //Collision With Left Of Hitboxes
@@ -327,8 +330,7 @@ namespace New_Physics.Entities
                     if (soy > eHitbox.y && soy < eHitbox.y + eHitbox.height && 
                         Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        isSwinging = true;
-                        tongueEnds.Add(new Vector2(sox, soy));
+                        tonguesOnHitbox.Add(new Vector3(sox, soy, 1));
                     }
 
                     //Collision With Top Of Hitboxes
@@ -337,8 +339,7 @@ namespace New_Physics.Entities
                     if (sox > eHitbox.x && sox < eHitbox.x + eHitbox.width &&
                         Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
-                        isSwinging = true;
-                        tongueEnds.Add(new Vector2(sox, soy));
+                        tonguesOnHitbox.Add(new Vector3(sox, soy, 2));
                     }
 
                     //Collision With Bottom Of Hitboxes
@@ -348,8 +349,50 @@ namespace New_Physics.Entities
                     if (sox > eHitbox.x && sox < eHitbox.x + eHitbox.width
                         && Utils.getDistance(x, y, sox, soy) > Utils.getDistance(mouse.X + Camera.X, mouse.Y + Camera.Y, sox, soy))
                     {
+                        tonguesOnHitbox.Add(new Vector3(sox, soy, 3));
+                    }
+
+                    //Find closest on hitbox
+                    Vector3 closestOnHitbox = new Vector3(0, 0, 4);
+                    Boolean foundOnHitbox = false;
+                    for (int k = 0; k < tonguesOnHitbox.Count; k++)
+                    {
+                        Vector3 tongueEnd = tonguesOnHitbox[k];
+                        Console.WriteLine(tongueEnd);
+
+                        //Finds closest tongue end on hitbox
+                        if (!foundOnHitbox)
+                        {
+                            closestOnHitbox = tongueEnd;
+                            foundOnHitbox = true;
+                            continue;
+                        }
+
+                        if (Utils.getDistance(x, y, tongueEnd.X, tongueEnd.Y) < Utils.getDistance(x, y, closestOnHitbox.X, closestOnHitbox.Y)) closestOnHitbox = tongueEnd;
+                    }
+
+
+                    void addTongueEnd()
+                    {
                         isSwinging = true;
-                        tongueEnds.Add(new Vector2(sox, soy));
+                        tongueEnds.Add(new Vector2(closestOnHitbox.X, closestOnHitbox.Y));
+                    }
+                    //Find if wall can be stuck to
+                    Platform platform = (Platform)entity;//right left top bottom
+                    switch (closestOnHitbox.Z)
+                    {
+                        case 0://Right
+                            if (platform.sRight) addTongueEnd();
+                            break;
+                        case 1://Left
+                            if (platform.sLeft) addTongueEnd();
+                            break;
+                        case 2://Top
+                            if (platform.sTop) addTongueEnd();
+                            break;
+                        case 3://Bottom
+                            if (platform.sBottom) addTongueEnd();
+                            break;
                     }
                 }
             }
@@ -367,13 +410,14 @@ namespace New_Physics.Entities
                 }
 
                 if (Utils.getDistance(x, y, tongueEnds[i].X, tongueEnds[i].Y) < Utils.getDistance(x, y, closest.X, closest.Y)) closest = tongueEnds[i];
-
             }
 
             sox = closest.X;
             soy = closest.Y;
             tongueLength = Utils.getDistance(sox, soy, x, y);
         }
+
+
 
         private void releaseSwing()
         {

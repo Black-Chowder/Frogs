@@ -22,18 +22,31 @@ namespace New_Physics.Entities
     {
         public static Texture2D cursor;
 
-        public static Texture2D player;
+        public static Texture2D frog;
         public static Rectangle[] idle;
-        public static Rectangle[] prepSling;
-        public static Rectangle[] slingLaunch;
-        //Attack Animation Load
-        public static Rectangle[] anticipa1;
-        public static Rectangle[] cont1;
-        public static Rectangle[] recov1;
+        public static Rectangle[] jump;
+        public static Rectangle[] openMouth;
+        public static Rectangle[] swing;
+
+        public static Rectangle[] tongueBody;
+        public static Rectangle[] tongueStuck;
+        public static Rectangle[] tongueEnd;
 
         public static void LoadContent(ContentManager Content)
         {
             cursor = Content.Load<Texture2D>("Cursor");
+
+            frog = Content.Load<Texture2D>("frog");
+            idle = Utils.spriteSheetLoader(80, 60, 3, 3, 1);
+            jump = Utils.spriteSheetLoader(80, 60, 3, 3, 1, 3);
+            openMouth = Utils.spriteSheetLoader(80, 60, 3, 3, 3, 5);
+            swing = Utils.spriteSheetLoader(80, 60, 3, 3, 5, 6);
+
+            tongueBody = Utils.spriteSheetLoader(80, 60, 3, 3, 6, 7);
+            tongueStuck = Utils.spriteSheetLoader(80, 60, 3, 3, 7, 8);
+            tongueEnd = Utils.spriteSheetLoader(80, 60, 3, 3, 8, 9);
+
+            
 
             //JumpDustSprites.LoadContent(Content);
             //PlayerSmashSprites.LoadContent(Content);
@@ -49,8 +62,13 @@ namespace New_Physics.Entities
 
         Boolean isFacingRight = true;
 
+        // <Animation Variables>
         String animation = "neutral";
         int animator = 0;
+
+        float aniMod = 10;
+
+        // </Animation Variables>
 
         // <Player Slingshot>
         private float startingX;
@@ -198,6 +216,18 @@ namespace New_Physics.Entities
             {
                 animator = 0;
             }
+            else if (animation == "jump" && animator >= PlayerSprites.jump.Count() * aniMod)
+            {
+                animator = PlayerSprites.jump.Count() * (int)aniMod - 1;
+            }
+            else if (animation == "openMouth" && animator / aniMod >= PlayerSprites.openMouth.Count())
+            {
+                animator = PlayerSprites.openMouth.Count() - 1;
+            }
+            else if (animation == "swing" && animator / aniMod >= PlayerSprites.swing.Count())
+            {
+                animator = PlayerSprites.swing.Count() - 1;
+            }
         }
 
         [Obsolete]
@@ -212,6 +242,80 @@ namespace New_Physics.Entities
             {
                 Hitbox hitbox = ((Rigidbody)getTrait("rigidbody")).hitboxes[i];
                 spriteBatch.Draw(texture, new Rectangle((int)(hitbox.x - Camera.X), (int)(hitbox.y - Camera.Y), (int)(hitbox.width), (int)(hitbox.height)), Color.White);
+            }
+
+
+            //Draw Frog Sprites  
+            Rectangle DR = new Rectangle(
+                (int)(x - width * 5 / 2 - Camera.X),
+                (int)(y - 35 * 5 - Camera.Y),
+                (int)(width * 5),
+                (int)(height * 5));
+
+            int trueAnimator = (int)(animator / aniMod);
+
+            switch (animation)
+            {
+                case "neutral":
+                    if (isFacingRight)
+                    {
+                        spriteBatch.Draw(PlayerSprites.frog,
+                            DR,
+                            sourceRectangle: PlayerSprites.idle[trueAnimator],
+                            color: Color.White);
+                        break;
+                    }
+                    spriteBatch.Draw(PlayerSprites.frog,
+                        destinationRectangle: DR,
+                        sourceRectangle: PlayerSprites.idle[trueAnimator],
+                        effects: SpriteEffects.FlipHorizontally,
+                        color: Color.White);
+                    break;
+                case "jump":
+                    if (isFacingRight)
+                    {
+                        spriteBatch.Draw(PlayerSprites.frog,
+                            DR,
+                            sourceRectangle: PlayerSprites.jump[trueAnimator],
+                            color: Color.White);
+                        break;
+                    }
+                    spriteBatch.Draw(PlayerSprites.frog,
+                        destinationRectangle: DR,
+                        sourceRectangle: PlayerSprites.jump[trueAnimator],
+                        effects: SpriteEffects.FlipHorizontally,
+                        color: Color.White);
+                    break;
+                case "openMouth":
+                    if (isFacingRight)
+                    {
+                        spriteBatch.Draw(PlayerSprites.frog,
+                            DR,
+                            sourceRectangle: PlayerSprites.openMouth[trueAnimator],
+                            color: Color.White);
+                        break;
+                    }
+                    spriteBatch.Draw(PlayerSprites.frog,
+                        destinationRectangle: DR,
+                        sourceRectangle: PlayerSprites.openMouth[trueAnimator],
+                        effects: SpriteEffects.FlipHorizontally,
+                        color: Color.White);
+                    break;
+                case "swing":
+                    if (isFacingRight)
+                    {
+                        spriteBatch.Draw(PlayerSprites.frog,
+                            DR,
+                            sourceRectangle: PlayerSprites.swing[trueAnimator],
+                            color: Color.White);
+                        break;
+                    }
+                    spriteBatch.Draw(PlayerSprites.frog,
+                        destinationRectangle: DR,
+                        sourceRectangle: PlayerSprites.swing[trueAnimator],
+                        effects: SpriteEffects.FlipHorizontally,
+                        color: Color.White);
+                    break;
             }
 
 
@@ -353,7 +457,6 @@ namespace New_Physics.Entities
                     for (int k = 0; k < tonguesOnHitbox.Count; k++)
                     {
                         Vector3 tongueEnd = tonguesOnHitbox[k];
-                        Console.WriteLine(tongueEnd);
 
                         //Finds closest tongue end on hitbox
                         if (!foundOnHitbox)
@@ -419,6 +522,7 @@ namespace New_Physics.Entities
         {
             tongueLength += tongueExtentionRate;
             if (tongueLength > maxTongueLength) tongueLength = maxTongueLength;
+            animation = "openMouth";
         }
 
         private void retractTongue()
@@ -447,6 +551,9 @@ namespace New_Physics.Entities
 
         private void swingHandler()
         {
+            //Sets Animation
+            if (isSwinging) animation = "swing";
+
             //Doesn't run if player is within where it should be or isn't swinging
             if (!isSwinging || Utils.circlePointCollision(x, y, sox, soy, tongueLength)) return;
 
@@ -479,7 +586,7 @@ namespace New_Physics.Entities
         private void beginSling()
         {
             if (isAttacking) return;
-            animation = "prepSling";
+            //animation = "prepSling";
             if (isSlinging) return;
             isSlinging = true;
             startingX = mouse.X;
@@ -523,7 +630,8 @@ namespace New_Physics.Entities
             //if (((Gravity)getTrait("gravity")).grounded) ParticleHandler.particles.Add(new JumpDust(x, y, true));
 
             //Sets up animation for sling handler
-            animation = "slingLaunch";
+            animation = "jump";
+            animator = 0;
             slingInit = true;
             ((Gravity)getTrait("gravity")).grounded = false;
         }
@@ -533,7 +641,7 @@ namespace New_Physics.Entities
             //Animation Handler
             if (slingInit)
             {
-                animation = "slingLaunch";
+                animation = "jump";
 
                 shouldSlamTimer++;
 

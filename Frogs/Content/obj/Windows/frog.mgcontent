@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Programming/C#/Frogs/Frogs/Content/Cursor.png</SourceFile>
-  <SourceTime>2020-08-07T13:56:59.0721982-04:00</SourceTime>
-  <DestFile>D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb</DestFile>
-  <DestTime>2020-09-08T17:36:17.5029598-04:00</DestTime>
+  <SourceFile>D:/Programming/C#/Frogs/Frogs/Content/frog.png</SourceFile>
+  <SourceTime>2020-09-08T17:35:39.94231-04:00</SourceTime>
+  <DestFile>D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb</DestFile>
+  <DestTime>2020-09-08T17:36:17.5306634-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

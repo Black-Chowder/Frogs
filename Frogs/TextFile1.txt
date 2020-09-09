@@ -38,3 +38,20 @@
             testy = soy;
         }
     }
+
+
+    
+        public static Texture2D frog;
+        public static Rectangle[] idle;
+        public static Rectangle[] jump;
+        public static Rectangle[] openMouth;
+        public static Rectangle[] swing;
+
+        public static Rectangle[] tongueBody;
+        public static Rectangle[] tongueStuck;
+        public static Rectangle[] tongueEnd;
+
+            spriteBatch.Draw(PlayerSprites.player,
+        new Rectangle((int)(x - 40 * m - Camera.X), (int)(y - 28.5*m - Camera.Y), (int)(80 * m), (int)(60 * m)),
+        sourceRectangle: PlayerSprites.idle[0],
+        color: Color.White);

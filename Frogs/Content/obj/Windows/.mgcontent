@@ -5,8 +5,10 @@
   <Config />
   <SourceFiles>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Cursor.png</File>
+    <File>D:/Programming/C#/Frogs/Frogs/Content/frog.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

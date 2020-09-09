@@ -72,6 +72,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="Content\Cursor.xnb" />
+    <None Include="Content\frog.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\Particles\" />

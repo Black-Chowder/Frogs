@@ -21,6 +21,10 @@ namespace Frogs.src
         public static int Width = 100;
         public static int Height = 100;
 
+        private static Vector2 nScreenSize = new Vector2(1920, 1080);
+
+        public static float gameScale = 1f;
+
         //Requested position.  The destination the camera wants to go to
         public static float reqX = 0;
         public static float reqY = 0;
@@ -65,6 +69,12 @@ namespace Frogs.src
             //Console.WriteLine("Camera Position = (" + X + "," + Y + ")");
         }
 
+        private static void updateGameScale()
+        {
+            gameScale = Width / 1920f;
+         
+        }
+
         public static void SetDimensions(GraphicsDeviceManager graphics, GraphicsDevice GraphicsDevice)
         {
             SetDimensions(graphics, GraphicsDevice.DisplayMode.Width, GraphicsDevice.DisplayMode.Height, true);
@@ -84,6 +94,8 @@ namespace Frogs.src
 
             Camera.Width = Width;
             Camera.Height = Height;
+
+            updateGameScale();
         }
 
         public static void SudoGoTo(float x, float y)

@@ -30,7 +30,8 @@ namespace Frogs
         {
             // TODO: Add your initialization logic here
 
-            Camera.SetDimensions(graphics, 800, 600);
+            Camera.SetDimensions(graphics, 1024, 576);
+            //Camera.SetDimensions(graphics, GraphicsDevice);
 
             EntityHandler.Init();
 

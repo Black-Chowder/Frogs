@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using New_Physics.Traits;
+using Frogs.src;
 
 namespace New_Physics.Entities
 {
@@ -24,12 +25,12 @@ namespace New_Physics.Entities
             //ParticleHandler.Init();
 
             
-            entities.Add(new Player(100, 350));
-            entities.Add(new Platform(0, 400, 1000, 500));
+            entities.Add(new Player(100 * Camera.gameScale, 350 * Camera.gameScale));
+            entities.Add(new Platform(0 * Camera.gameScale, 400 * Camera.gameScale, 1000 * Camera.gameScale, 500 * Camera.gameScale));
             //entities.Add(new Block(200, 100, 50, 50, (float)5, (float)1.5));
             //entities.Add(new Platform(500, 200, 1000, 20));
             //entities.Add(new Block(600, 150, 50, 50, (float)1.8, (float)1));
-            entities.Add(new Platform(400, 0, 100, 100));
+            entities.Add(new Platform(400 * Camera.gameScale, 0 * Camera.gameScale, 100 * Camera.gameScale, 100 * Camera.gameScale));
             //entities.Add(new TestEnemy(700, 300));
             //entities.Add(new Platform(600, 200, 50, 50));
         }

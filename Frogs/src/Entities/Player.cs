@@ -58,7 +58,7 @@ namespace New_Physics.Entities
 
     public class Player : Entity
     {
-        private float speed = 2.2f;
+        private float speed = 2.2f * Camera.gameScale;
         MouseState mouse;
 
         Boolean isFacingRight = true;
@@ -76,18 +76,18 @@ namespace New_Physics.Entities
         private float startingY;
         private Boolean isSlinging = false;
 
-        private float maxSlingPowerX = 15;
-        private float maxSlingPowerY = 25;
+        private float maxSlingPowerX = 15 * Camera.gameScale;
+        private float maxSlingPowerY = 25 * Camera.gameScale;
 
-        private float dragPower = .25f;
+        private float dragPower = .25f * Camera.gameScale;
 
         private int projectionRange = 1000;
 
         private int toProjectModifier = 5;
         private Projection[] projections;
 
-        private float minSlingX = 3;
-        private float minSlingY = 3;
+        private float minSlingX = 3 * Camera.gameScale;
+        private float minSlingY = 3 * Camera.gameScale;
 
         private int shouldSlamTimer = 0;
         private const int shouldSlamTimerMax = 20;
@@ -105,10 +105,10 @@ namespace New_Physics.Entities
         private float sox = 0;
         private float soy = 0;
         private float tongueLength = 0;
-        private float maxTongueLength = 500;
+        private float maxTongueLength = 500 * Camera.gameScale;
 
-        private const float tongueRetractionRate = 1;
-        private const float tongueExtentionRate = 1;
+        private float tongueRetractionRate = 1 * Camera.gameScale;
+        private float tongueExtentionRate = 1 * Camera.gameScale;
 
         private Vector2 prePos = new Vector2(0, 0);
         private Vector2 preDel = new Vector2(0, 0);
@@ -119,14 +119,14 @@ namespace New_Physics.Entities
 
 
         //Testing Variables
-        private Boolean showHitbox = true;
+        private Boolean showHitbox = false;
 
         public Player(float x, float y) : base("player", x, y)
         {
-            width = 50;
-            height = 50;
-            addTrait(new Gravity(this, 1f));
-            addTrait(new Friction(this, (float)1.5 ,(float)1.02));
+            width = 50 * Camera.gameScale;
+            height = 50 * Camera.gameScale;
+            addTrait(new Gravity(this, 1f * Camera.gameScale));
+            addTrait(new Friction(this, (float)1.5, (float)1.02));
             addTrait(new Timer(this, "timer", 300));
 
             List<Hitbox> hitboxes = new List<Hitbox>();
@@ -245,7 +245,8 @@ namespace New_Physics.Entities
                 spriteBatch.Draw(texture, new Rectangle((int)(hitbox.x - Camera.X), (int)(hitbox.y - Camera.Y), (int)(hitbox.width), (int)(hitbox.height)), Color.White);
             }
 
-            float scale = 4;
+            //Console.WriteLine(Camera.gameScale);
+            float scale = 4 * Camera.gameScale;
 
             //Draw Frog Sprites  
             Rectangle DR = new Rectangle(
@@ -661,7 +662,7 @@ namespace New_Physics.Entities
                 {
                     if (shouldSlam)
                     {
-                        Camera.Shake(100, 15);
+                        //Camera.Shake(100, 15);
                         //ParticleHandler.particles.Add(new PlayerSmash(x, y, isFacingRight));
                     }
                     slingInit = false;

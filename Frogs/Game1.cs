@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Frogs.src;
 using New_Physics.Entities;
+using System.IO;
+using System;
 
 namespace Frogs
 {
@@ -36,6 +38,12 @@ namespace Frogs
             EntityHandler.Init();
 
             base.Initialize();
+
+            TextReader tr = new StreamReader(@"Levels.txt");
+            string myText = tr.ReadLine();
+
+            Console.WriteLine(myText);
+            
         }
 
         /// <summary>

@@ -47,8 +47,6 @@ namespace New_Physics.Entities
             tongueStuck = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 7, 8);
             tongueEnd = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 8, 9);
 
-            
-
             //JumpDustSprites.LoadContent(Content);
             //PlayerSmashSprites.LoadContent(Content);
 

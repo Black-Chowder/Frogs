@@ -1,3 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.3146192
-"D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0239259
+"D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.3286753
+"D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0159862

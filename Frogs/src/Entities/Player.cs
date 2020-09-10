@@ -23,6 +23,7 @@ namespace New_Physics.Entities
         public static Texture2D cursor;
 
         public static Texture2D frog;
+        public static Vector2 frogSize = new Vector2(80, 60);
         public static Rectangle[] idle;
         public static Rectangle[] jump;
         public static Rectangle[] openMouth;
@@ -37,14 +38,14 @@ namespace New_Physics.Entities
             cursor = Content.Load<Texture2D>("Cursor");
 
             frog = Content.Load<Texture2D>("frog");
-            idle = Utils.spriteSheetLoader(80, 60, 3, 3, 1);
-            jump = Utils.spriteSheetLoader(80, 60, 3, 3, 1, 3);
-            openMouth = Utils.spriteSheetLoader(80, 60, 3, 3, 3, 5);
-            swing = Utils.spriteSheetLoader(80, 60, 3, 3, 5, 6);
+            idle = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 1);
+            jump = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 1, 3);
+            openMouth = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 3, 5);
+            swing = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 5, 6);
 
-            tongueBody = Utils.spriteSheetLoader(80, 60, 3, 3, 6, 7);
-            tongueStuck = Utils.spriteSheetLoader(80, 60, 3, 3, 7, 8);
-            tongueEnd = Utils.spriteSheetLoader(80, 60, 3, 3, 8, 9);
+            tongueBody = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 6, 7);
+            tongueStuck = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 7, 8);
+            tongueEnd = Utils.spriteSheetLoader((int)frogSize.X, (int)(frogSize.Y), 3, 3, 8, 9);
 
             
 
@@ -244,13 +245,14 @@ namespace New_Physics.Entities
                 spriteBatch.Draw(texture, new Rectangle((int)(hitbox.x - Camera.X), (int)(hitbox.y - Camera.Y), (int)(hitbox.width), (int)(hitbox.height)), Color.White);
             }
 
+            float scale = 4;
 
             //Draw Frog Sprites  
             Rectangle DR = new Rectangle(
-                (int)(x - width * 5 / 2 - Camera.X),
-                (int)(y - 35 * 5 - Camera.Y),
-                (int)(width * 5),
-                (int)(height * 5));
+                (int)(x - PlayerSprites.frogSize.X * scale / 2 - Camera.X),
+                (int)(((y + height / 2) - (PlayerSprites.frogSize.Y - 12) * scale) - Camera.Y),
+                (int)(PlayerSprites.frogSize.X * scale),
+                (int)(PlayerSprites.frogSize.Y * scale));
 
             int trueAnimator = (int)(animator / aniMod);
 
@@ -305,7 +307,7 @@ namespace New_Physics.Entities
                     if (isFacingRight)
                     {
                         spriteBatch.Draw(PlayerSprites.frog,
-                            DR,
+                            destinationRectangle: DR,
                             sourceRectangle: PlayerSprites.swing[trueAnimator],
                             color: Color.White);
                         break;
@@ -331,23 +333,26 @@ namespace New_Physics.Entities
             spriteBatch.End();
             
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             if (isSwinging)
             {
-                spriteBatch.Draw(texture,
-                    new Rectangle((int)(sox - Camera.X), (int)(soy - Camera.Y), 50, 5),
-                    Color.White);
 
                 //Draw Tongue
                 Utils.DrawLine(spriteBatch,
                     new Vector2((int)(sox - Camera.X), (int)(soy - Camera.Y)),
-                    new Vector2((int)(x - Camera.X), (int)(y - Camera.Y)),
-                    Color.Red);
-
-                spriteBatch.Draw(texture,
-                    new Rectangle((int)(sox - 5 - Camera.X), (int)(soy - 5 - Camera.Y), 10, 10),
-                    Color.Red);
+                    new Vector2((int)(x - Camera.X), (int)(y - 45 - Camera.Y)),
+                    new Color(70, 135, 143),
+                    5f);
+                
+                //Draw End Of Tongue
+                spriteBatch.Draw(PlayerSprites.frog,
+                    new Rectangle((int)(sox - 80 * scale / 2 - Camera.X),
+                    (int)(((soy + height / 2) - (PlayerSprites.frogSize.Y - 6) * scale) - Camera.Y),
+                    (int)(80 * scale),
+                    (int)(60 * scale)),
+                    sourceRectangle: PlayerSprites.tongueEnd[0],
+                    color: Color.White);
             }
 
 
@@ -362,7 +367,7 @@ namespace New_Physics.Entities
                     //Draws Projection Dots
                     spriteBatch.Draw(texture,
                         new Rectangle((int)(projection.x - Camera.X), (int)(projection.y - Camera.Y), 5, 5),
-                        Color.Red);
+                        new Color(226, 243, 228));
                 }
 
                 //Shows line from starting sling to current mouse position
@@ -370,6 +375,8 @@ namespace New_Physics.Entities
                     new Vector2((int)(mouse.X), (int)(mouse.Y)), 
                     new Vector2((int)(startingX), (int)(startingY)), 
                     Color.Black);
+
+
             }
 
             spriteBatch.End();

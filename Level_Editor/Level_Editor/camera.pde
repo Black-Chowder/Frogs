@@ -25,6 +25,10 @@ public  class Camera{
       dx += speed;
     }
     
+    if (ePressed){
+      mapHandler.exportMap();
+    }
+    
     //Update Position
     X += dx;
     Y += dy;
@@ -71,7 +75,7 @@ public Boolean wPressed = false;
 public Boolean aPressed = false;
 public Boolean sPressed = false;
 public Boolean dPressed = false;
-
+public Boolean ePressed = false;
 public void keyPressed(){
   if (key == 'w'){
     wPressed = true;
@@ -84,6 +88,9 @@ public void keyPressed(){
   }
   else if (key == 'd'){
     dPressed = true;
+  }
+  else if (key == 'e'){
+    ePressed = true;
   }
 }
 
@@ -99,5 +106,8 @@ public void keyReleased(){
   }
   else if (key == 'd'){
     dPressed = false;
+  }
+  else if (key == 'e'){
+    ePressed = false;
   }
 }

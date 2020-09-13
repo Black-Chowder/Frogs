@@ -8,6 +8,8 @@ public String item = "player";
 
 public final int tileSize = 50;
 
+PrintWriter output;
+
 //Map Arrays
 
 
@@ -25,6 +27,7 @@ public class Map{
   public int[][] textureArray = new int[int(mapSize.Y)][int(mapSize.X)];
   
   public int[][] foregroundObjects = new int[int(mapSize.Y)][int(mapSize.X)];
+  
 }
 
 //Map Handler Class
@@ -71,5 +74,32 @@ public class MapHandler{
       stroke(126);
       line(0, i * map.tileSize - camera.Y, width, i * map.tileSize - camera.Y);
     }
+  }
+  
+  void exportMap(){
+    output = createWriter("map.txt");
+    
+    //backgroundObjects
+    //entityArrays
+    //textureArrays
+    //foregroundObjects
+    
+    
+    output.print("Level1");
+    output.print(":");
+    for (int i = 0; i < EntityHandler.entities.size(); i++){
+      Entity entity = EntityHandler.entities.get(i);
+      
+      output.print(entity.classId + "," + entity.X + "," + entity.Y + "," + entity.Width + "," + entity.Height + ";");
+      
+    }
+    
+    //Buffer
+    output.print("\n\n\n\n\n\n\n\n\n\n\n\n");
+    for (int i = 0; i < 50000; i++){
+      output.print("yee" + str(i));
+    }
+    
+    println("EXPORT COMPLETE");
   }
 }

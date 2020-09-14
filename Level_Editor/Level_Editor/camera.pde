@@ -29,6 +29,15 @@ public  class Camera{
       mapHandler.exportMap();
     }
     
+    if (iClicked){
+      if (inInventory){
+        inInventory = false;
+      }
+      else{
+        inInventory = true;
+      }
+    }
+    
     //Update Position
     X += dx;
     Y += dy;
@@ -66,6 +75,7 @@ public class MCHandler{
   }
   void PostUpdate(){
     mouseClicked = false;
+    iClicked = false;
   }
 }
 
@@ -76,6 +86,8 @@ public Boolean aPressed = false;
 public Boolean sPressed = false;
 public Boolean dPressed = false;
 public Boolean ePressed = false;
+public Boolean iPressed = false;
+public Boolean iClicked = false;
 public void keyPressed(){
   if (key == 'w'){
     wPressed = true;
@@ -91,6 +103,10 @@ public void keyPressed(){
   }
   else if (key == 'e'){
     ePressed = true;
+  }
+  else if (key == 'i'){
+    iPressed = true;
+    iClicked = true;
   }
 }
 
@@ -109,5 +125,8 @@ public void keyReleased(){
   }
   else if (key == 'e'){
     ePressed = false;
+  }
+  else if (key == 'i'){
+    iPressed = false;
   }
 }

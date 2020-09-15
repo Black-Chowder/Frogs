@@ -96,6 +96,8 @@ namespace New_Physics.Entities
 
         public float tm = 1f;
 
+        public Boolean Exists = true;
+
         public Entity(string classId, float x, float y)
         {
             traits = new List<Trait>();

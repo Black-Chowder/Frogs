@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using New_Physics.Entities;
+using Frogs.src.Entities;
 
 namespace Frogs.src
 {
@@ -15,7 +16,12 @@ namespace Frogs.src
 
         public static void LoadLevel()
         {
+            //Clear Entities
             EntityHandler.entities.Clear();
+
+            //Create Goal Handler
+            EntityHandler.entities.Add(new GoalHandler());
+            GoalHandler goalHandler = (GoalHandler)EntityHandler.entities[0];
 
             for (int i = 0; i < rawMapData.Split(':')[1].Split(';').Length; i++)
             {
@@ -36,9 +42,7 @@ namespace Frogs.src
                         Console.WriteLine("Platform Created");
                         break;
                     case "goal":
-                        EntityHandler.entities.Add(new Player(
-                            float.Parse(rawData[1]),
-                            float.Parse(rawData[2])));
+                        goalHandler.createGoal(float.Parse(rawData[1]), float.Parse(rawData[2]));
                         Console.WriteLine("Goal Created");
                         break;
                 }

@@ -39,10 +39,8 @@ namespace Frogs
 
             base.Initialize();
 
-            TextReader tr = new StreamReader(@"Levels.txt");
-            string myText = tr.ReadLine();
 
-            Console.WriteLine(myText);
+            Level_Loader.LoadLevel();
             
         }
 

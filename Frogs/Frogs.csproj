@@ -48,6 +48,7 @@
     <Compile Include="src\Entities\Block.cs" />
     <Compile Include="src\Entities\Entity.cs" />
     <Compile Include="src\Entities\Platform.cs" />
+    <Compile Include="src\Level_Loader.cs" />
     <Compile Include="src\Traits\Friction.cs" />
     <Compile Include="src\Traits\Gravity.cs" />
     <Compile Include="src\Traits\Health.cs" />

@@ -49,6 +49,7 @@
     <Compile Include="src\Entities\Entity.cs" />
     <Compile Include="src\Entities\Goal.cs" />
     <Compile Include="src\Entities\Platform.cs" />
+    <Compile Include="src\GameHandler.cs" />
     <Compile Include="src\Level_Loader.cs" />
     <Compile Include="src\Traits\Friction.cs" />
     <Compile Include="src\Traits\Gravity.cs" />

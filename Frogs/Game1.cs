@@ -31,17 +31,11 @@ namespace Frogs
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // TODO: Add your initialization logic here            
 
-            Camera.SetDimensions(graphics, 1024, 576);
-            //Camera.SetDimensions(graphics, GraphicsDevice);
-
-            EntityHandler.Init();
+            GameHandler.Init(graphics);
 
             base.Initialize();
-
-
-            Level_Loader.LoadLevel();
             
         }
 
@@ -55,9 +49,7 @@ namespace Frogs
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            PlayerSprites.LoadContent(Content);
-            
-            GoalSprites.LoadContent(Content);
+            GameHandler.LoadContent(Content);
         }
 
         /// <summary>
@@ -80,8 +72,7 @@ namespace Frogs
                 Exit();
 
             // TODO: Add your update logic here
-            EntityHandler.Update();
-            Camera.Update();
+            GameHandler.Update();
 
             base.Update(gameTime);
         }
@@ -92,10 +83,8 @@ namespace Frogs
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
-            EntityHandler.Draw(spriteBatch, GraphicsDevice);
+            GameHandler.Draw(spriteBatch, GraphicsDevice);
 
             base.Draw(gameTime);
         }

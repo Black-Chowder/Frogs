@@ -48,3 +48,4 @@ C:\Users\iabla\Documents\GitHub\Frogs\Frogs\obj\x86\Debug\Frogs.exe
 C:\Users\iabla\Documents\GitHub\Frogs\Frogs\obj\x86\Debug\Frogs.pdb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\frog.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Levels.txt
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Score.xnb

@@ -78,6 +78,7 @@
     <None Include="app.manifest" />
     <None Include="Content\Cursor.xnb" />
     <None Include="Content\frog.xnb" />
+    <None Include="Content\Score.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\Particles\" />

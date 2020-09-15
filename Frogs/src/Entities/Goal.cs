@@ -8,9 +8,19 @@ using New_Physics.Entities;
 using Microsoft.Xna.Framework;
 using New_Physics.Traits;
 using Frogs.src;
+using Microsoft.Xna.Framework.Content;
 
 namespace Frogs.src.Entities
 {
+    public static class GoalSprites
+    {
+        public static SpriteFont font;
+
+        public static void LoadContent(ContentManager Content)
+        {
+            font = Content.Load<SpriteFont>(@"Score");
+        }
+    }
     public class GoalHandler : Entity
     {
         List<Goal> goals;
@@ -28,18 +38,28 @@ namespace Frogs.src.Entities
             {
                 goals[i].Update();
                 //Score Detection
-                if (!goals[i].Exists) goals.RemoveAt(i);
-                score++;
-                Console.WriteLine("Score = " + score);
+                if (!goals[i].Exists)
+                {
+                    goals.RemoveAt(i);
+                    score++;
+                }
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
+            //Draw Goals
             for (int i = 0; i < goals.Count; i++)
             {
                 goals[i].Draw(spriteBatch, graphicsDevice);
             }
+
+            //Draw Score
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(GoalSprites.font, "Flies Eaten: " + score + " / " + maxScore, new Vector2(25, 25), Color.Black);
+
+            spriteBatch.End();
         }
 
         public void createGoal(float x, float y)

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Frogs.src;
 using New_Physics.Entities;
+using Frogs.src.Entities;
 using System.IO;
 using System;
 
@@ -55,6 +56,8 @@ namespace Frogs
 
             // TODO: use this.Content to load your game content here
             PlayerSprites.LoadContent(Content);
+            
+            GoalSprites.LoadContent(Content);
         }
 
         /// <summary>

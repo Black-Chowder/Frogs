@@ -65,7 +65,7 @@ public class MapHandler{
                   int(EntityHandler.entities.get(i).Width), 
                   int(EntityHandler.entities.get(i).Height), 
                   mouseX, mouseY)){
-                    
+                    oneFound = true;
                   }
                 }
                 if (!oneFound) EntityHandler.entities.add(new Entity(item, x * map.tileSize, y * map.tileSize));
@@ -164,7 +164,7 @@ public class MapHandler{
     
     //Optimizes along x axis
     Boolean found = false;
-    while (!found){
+    while (true){
       found = true;
       
       for (int i = 0; i < EntityHandler.entities.size(); i++){
@@ -173,18 +173,20 @@ public class MapHandler{
         for (int j = 0; j < EntityHandler.entities.size(); j++){
           if (entity == EntityHandler.entities.get(j)) continue;
           
-          if (entity.X + entity.Width == EntityHandler.entities.get(j).X){
+          if (entity.X + entity.Width == EntityHandler.entities.get(j).X && entity.Y == EntityHandler.entities.get(j).Y){
             entity.Width += EntityHandler.entities.get(j).Width;
             EntityHandler.entities.remove(j);
             found = false;
           }
         }
       }
+      if (found) break;
     }
     
     //Optimizes along y axis
+    
     found = false;
-    while (!found){
+    while (true){
       found = true;
       
       for (int i = 0; i < EntityHandler.entities.size(); i++){
@@ -200,6 +202,8 @@ public class MapHandler{
           }
         }
       }
+      if (found) break;
     }
+    
   }
 }

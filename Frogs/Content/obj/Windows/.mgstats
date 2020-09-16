@@ -1,6 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.0992634
-"D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0159857
-"D:/Programming/C#/Frogs/Frogs/Content/Score.spritefont","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70673,0.2583076
-"D:/Programming/C#/Frogs/Frogs/Content/StartButton.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/StartButton.xnb","TextureProcessor","Texture2DContent",499,26125,0.0249336
-"D:/Programming/C#/Frogs/Frogs/Content/TitleScreen.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/TitleScreen.xnb","TextureProcessor","Texture2DContent",1263,83029,0.0159578
+"D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.2958659
+"D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0220371
+"D:/Programming/C#/Frogs/Frogs/Content/Platform.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Platform.xnb","TextureProcessor","Texture2DContent",175,985,0.1176825
+"D:/Programming/C#/Frogs/Frogs/Content/Score.spritefont","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70673,0.2393628
+"D:/Programming/C#/Frogs/Frogs/Content/StartButton.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/StartButton.xnb","TextureProcessor","Texture2DContent",499,26125,0.0468738
+"D:/Programming/C#/Frogs/Frogs/Content/TitleScreen.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/TitleScreen.xnb","TextureProcessor","Texture2DContent",1263,83029,0.0209461

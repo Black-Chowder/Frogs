@@ -51,3 +51,4 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Levels.txt
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Score.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\StartButton.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\TitleScreen.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Platform.xnb

@@ -57,6 +57,7 @@ namespace Frogs.src
             PlayerSprites.LoadContent(Content);
             GoalSprites.LoadContent(Content);
             cursorHandler.LoadContent(Content);
+            PlatformSprites.LoadContent(Content);
         }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)

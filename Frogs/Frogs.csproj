@@ -51,6 +51,7 @@
     <Compile Include="src\Entities\Platform.cs" />
     <Compile Include="src\GameHandler.cs" />
     <Compile Include="src\Level_Loader.cs" />
+    <Compile Include="src\StartScreen.cs" />
     <Compile Include="src\Traits\Friction.cs" />
     <Compile Include="src\Traits\Gravity.cs" />
     <Compile Include="src\Traits\Health.cs" />
@@ -80,6 +81,8 @@
     <None Include="Content\Cursor.xnb" />
     <None Include="Content\frog.xnb" />
     <None Include="Content\Score.xnb" />
+    <None Include="Content\StartButton.xnb" />
+    <None Include="Content\TitleScreen.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\Particles\" />

@@ -13,13 +13,17 @@ namespace Frogs.src
 {
     public static class GameHandler
     {
-        public static string gamestate = "initLevel";
+        public static string gamestate = "startScreen";
+
+        private static StartScreen startScreen;
 
         public static void Init(GraphicsDeviceManager graphics)
         {
             Camera.SetDimensions(graphics, 1024, 576);
             //Camera.SetDimensions(graphics, GraphicsDevice);
             EntityHandler.Init();
+
+            startScreen = new StartScreen();
         }
 
         public static void Update()
@@ -27,7 +31,8 @@ namespace Frogs.src
             switch (gamestate)
             {
                 case "startScreen":
-
+                    startScreen.Update();
+                    if (startScreen.Begin) gamestate = "initLevel";
                     break;
                 case "initLevel":
                     Level_Loader.LoadLevel();
@@ -44,6 +49,7 @@ namespace Frogs.src
 
         public static void LoadContent(ContentManager Content)
         {
+            startScreen.LoadContent(Content);
             PlayerSprites.LoadContent(Content);
             GoalSprites.LoadContent(Content);
         }
@@ -52,12 +58,7 @@ namespace Frogs.src
         {
             graphicsDevice.Clear(Color.CornflowerBlue);
             EntityHandler.Draw(spriteBatch, graphicsDevice);
+            if (gamestate == "startScreen") startScreen.Draw(spriteBatch, graphicsDevice);
         }
-    }
-
-    public static class startScreenSprites
-    {
-
-
     }
 }

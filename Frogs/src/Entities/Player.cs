@@ -175,12 +175,12 @@ namespace New_Physics.Entities
             else if (mouse.RightButton != ButtonState.Pressed) swingInit = true;
 
             //Extend/Retract Tongue
-            if (keys.IsKeyDown(Keys.W)) retractTongue();
-            if (keys.IsKeyDown(Keys.S)) extendTongue();
+            //if (keys.IsKeyDown(Keys.W)) retractTongue();
+            //if (keys.IsKeyDown(Keys.S)) extendTongue();
 
             //Suggest lean while swinging
-            if (keys.IsKeyDown(Keys.A)) swingLean(false);
-            if (keys.IsKeyDown(Keys.D)) swingLean(true);
+            //if (keys.IsKeyDown(Keys.A)) swingLean(false);
+            //if (keys.IsKeyDown(Keys.D)) swingLean(true);
 
 
             //Save current position before moving

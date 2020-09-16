@@ -319,14 +319,7 @@ namespace New_Physics.Entities
                     break;
             }
 
-
-
-
-            //Draws Cursor
-            spriteBatch.Draw(PlayerSprites.cursor,
-                destinationRectangle: new Rectangle((int)(mouse.X), (int)(mouse.Y), 30, 30),
-                color: Color.White);
-
+            //Draw Cursor moved to cursor handler
 
 
             spriteBatch.End();

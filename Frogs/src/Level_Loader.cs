@@ -31,7 +31,7 @@ namespace Frogs.src
                 {
                     case "player":
                         EntityHandler.entities.Add(new Player(float.Parse(rawData[1]), float.Parse(rawData[2])));
-                        Console.WriteLine("Player Created");
+                        //Console.WriteLine("Player Created");
                         break;
                     case "platform":
                         EntityHandler.entities.Add(new Platform(
@@ -39,16 +39,14 @@ namespace Frogs.src
                             float.Parse(rawData[2]),
                             float.Parse(rawData[3]),
                             float.Parse(rawData[4])));
-                        Console.WriteLine("Platform Created");
+                        //Console.WriteLine("Platform Created");
                         break;
                     case "goal":
                         goalHandler.createGoal(float.Parse(rawData[1]), float.Parse(rawData[2]));
-                        Console.WriteLine("Goal Created");
+                        //Console.WriteLine("Goal Created");
                         break;
                 }
             }
-
-            //TODO: Create cursor handler to prevent cursor from going behind objects
         }
     }
 }

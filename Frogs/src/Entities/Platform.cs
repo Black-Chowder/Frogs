@@ -62,9 +62,9 @@ namespace New_Physics.Entities
         {
             //Draw Hitbox
             Texture2D texture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            texture.SetData<Color>(new Color[] { Color.White });
+            texture.SetData<Color>(new Color[] { new Color(51,44,80) });
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, new Rectangle((int)(x - Camera.X), (int)(y - Camera.Y), (int)width, (int)height), Color.Black);
+            spriteBatch.Draw(texture, new Rectangle((int)(x - Camera.X), (int)(y - Camera.Y), (int)width, (int)height), Color.White);
             spriteBatch.End();
             texture.Dispose();
 

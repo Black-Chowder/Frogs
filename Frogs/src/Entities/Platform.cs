@@ -73,9 +73,9 @@ namespace New_Physics.Entities
             int w = (int)(50 * Camera.gameScale);
             int h = (int)(50 * Camera.gameScale);
 
-            for (int y = 0; y < height; y += 50)
+            for (int y = 0; y < height; y += h)
             {
-                for (int x = 0; x < width; x += 32)
+                for (int x = 0; x < width; x += w)
                 {
                     //If left of platform
                     if (x == 0)
@@ -89,7 +89,7 @@ namespace New_Physics.Entities
                                 color: Color.White);
                         }
                         //If bottom left of platform
-                        else if (y >= height - 50)
+                        else if (y >= height - h)
                         {
                             spriteBatch.Draw(PlatformSprites.ss,
                                 new Rectangle((int)(this.x - Camera.X), (int)(this.y + height - h - Camera.Y), w, h),
@@ -106,7 +106,7 @@ namespace New_Physics.Entities
                         }
                     }
                     //If right of platform
-                    else if (x >= width - 50)
+                    else if (x >= width - w)
                     {
                         //If top right of platofrm
                         if (y == 0)
@@ -117,7 +117,7 @@ namespace New_Physics.Entities
                                 color: Color.White);
                         }
                         //If bottom right of platform
-                        else if (y == height - 50)
+                        else if (y == height - h)
                         {
                             spriteBatch.Draw(PlatformSprites.ss,
                                 new Rectangle((int)(this.x + width - w - Camera.X), (int)(this.y + height - h - Camera.Y), w, h),

@@ -52,3 +52,8 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Score.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\StartButton.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\TitleScreen.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Platform.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Achive.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Fall.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Jump.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\outTongue1.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\outTongue2.xnb

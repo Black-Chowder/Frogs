@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using Hammer_Knight.src.Traits;
 using Frogs.src;
+using Microsoft.Xna.Framework.Audio;
 
 namespace New_Physics.Entities
 {
@@ -33,6 +34,11 @@ namespace New_Physics.Entities
         public static Rectangle[] tongueStuck;
         public static Rectangle[] tongueEnd;
 
+        //Audio Variables
+        public static SoundEffect jumpsfx;
+        public static SoundEffect outTongue;
+        public static SoundEffect fall;
+
         public static void LoadContent(ContentManager Content)
         {
             cursor = Content.Load<Texture2D>("Cursor");
@@ -50,6 +56,10 @@ namespace New_Physics.Entities
             //JumpDustSprites.LoadContent(Content);
             //PlayerSmashSprites.LoadContent(Content);
 
+            //Import Audio
+            jumpsfx = Content.Load<SoundEffect>("Jump");
+            outTongue = Content.Load<SoundEffect>("outTongue2");
+            fall = Content.Load<SoundEffect>("Fall");
         }
     }
 
@@ -514,7 +524,8 @@ namespace New_Physics.Entities
             tongueLength = Utils.getDistance(sox, soy, x, y);
 
             //Doesn't make tongue if tongue is over max tongue length
-            if (tongueLength > maxTongueLength)isSwinging = false;
+            if (tongueLength > maxTongueLength) isSwinging = false;
+            else PlayerSprites.outTongue.Play();
         }
 
         private void extendTongue()
@@ -633,6 +644,7 @@ namespace New_Physics.Entities
             animator = 0;
             slingInit = true;
             ((Gravity)getTrait("gravity")).grounded = false;
+            PlayerSprites.jumpsfx.Play();
         }
 
         private void slingHandler()
@@ -653,6 +665,7 @@ namespace New_Physics.Entities
                 {
                     if (shouldSlam)
                     {
+                        PlayerSprites.fall.Play();
                         //Camera.Shake(100, 15);
                         //ParticleHandler.particles.Add(new PlayerSmash(x, y, isFacingRight));
                     }

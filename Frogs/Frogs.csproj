@@ -78,8 +78,13 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\SoundFX\Achive.xnb" />
     <None Include="Content\Cursor.xnb" />
+    <None Include="Content\SoundFX\Fall.xnb" />
     <None Include="Content\frog.xnb" />
+    <None Include="Content\SoundFX\Jump.xnb" />
+    <None Include="Content\SoundFX\outTongue1.xnb" />
+    <None Include="Content\SoundFX\outTongue2.xnb" />
     <None Include="Content\Platform.xnb" />
     <None Include="Content\Score.xnb" />
     <None Include="Content\StartButton.xnb" />

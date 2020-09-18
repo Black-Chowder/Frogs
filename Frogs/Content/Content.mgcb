@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Achive.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Achive.wav
+
 #begin Cursor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -25,6 +31,12 @@
 /processorParam:TextureFormat=Color
 /build:Cursor.png
 
+#begin Fall.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fall.wav
+
 #begin frog.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +48,24 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:frog.png
+
+#begin Jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Jump.wav
+
+#begin outTongue1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:outTongue1.wav
+
+#begin outTongue2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:outTongue2.wav
 
 #begin Platform.png
 /importer:TextureImporter

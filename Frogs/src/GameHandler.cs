@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Frogs.src.Entities;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Frogs.src
 {
@@ -18,6 +19,8 @@ namespace Frogs.src
 
         private static StartScreen startScreen;
         private static CursorHandler cursorHandler;
+
+        private static SoundEffect effect;
 
         public static void Init(GraphicsDeviceManager graphics)
         {
@@ -39,7 +42,7 @@ namespace Frogs.src
                     break;
                 case "initLevel":
                     Level_Loader.LoadLevel();
-
+                    effect.Play();
                     gamestate = "level";
                     break;
                 case "level":
@@ -58,6 +61,8 @@ namespace Frogs.src
             GoalSprites.LoadContent(Content);
             cursorHandler.LoadContent(Content);
             PlatformSprites.LoadContent(Content);
+
+            effect = Content.Load<SoundEffect>(@"Achive");
         }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)

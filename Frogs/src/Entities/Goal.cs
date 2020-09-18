@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using New_Physics.Traits;
 using Frogs.src;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Frogs.src.Entities
 {
@@ -16,9 +17,12 @@ namespace Frogs.src.Entities
     {
         public static SpriteFont font;
 
+        public static SoundEffect achive;
+
         public static void LoadContent(ContentManager Content)
         {
             font = Content.Load<SpriteFont>(@"Score");
+            achive = Content.Load<SoundEffect>(@"Achive");
         }
     }
     public class GoalHandler : Entity
@@ -42,6 +46,7 @@ namespace Frogs.src.Entities
                 {
                     goals.RemoveAt(i);
                     score++;
+                    GoalSprites.achive.Play();
                 }
             }
         }

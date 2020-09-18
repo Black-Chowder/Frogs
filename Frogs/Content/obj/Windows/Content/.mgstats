@@ -1,6 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Programming/C#/Frogs/Frogs/Content/Achive.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Achive.xnb","SoundEffectProcessor","SoundEffectContent",42554,42615,0.2633212
 "D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.4203983
+"D:/Programming/C#/Frogs/Frogs/Content/Fall.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Fall.xnb","SoundEffectProcessor","SoundEffectContent",17258,17319,0.1506764
 "D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.1097422
+"D:/Programming/C#/Frogs/Frogs/Content/Jump.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Jump.xnb","SoundEffectProcessor","SoundEffectContent",12422,12483,0.1496672
+"D:/Programming/C#/Frogs/Frogs/Content/outTongue1.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/outTongue1.xnb","SoundEffectProcessor","SoundEffectContent",10188,10249,0.144613
+"D:/Programming/C#/Frogs/Frogs/Content/outTongue2.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/outTongue2.xnb","SoundEffectProcessor","SoundEffectContent",41494,41555,0.1516681
 "D:/Programming/C#/Frogs/Frogs/Content/Platform.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Platform.xnb","TextureProcessor","Texture2DContent",175,985,0.106716
 "D:/Programming/C#/Frogs/Frogs/Content/Score.spritefont","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70673,0.2424624
 "D:/Programming/C#/Frogs/Frogs/Content/StartButton.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Content/StartButton.xnb","TextureProcessor","Texture2DContent",499,26125,0.1341489

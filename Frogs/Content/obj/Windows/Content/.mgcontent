@@ -7,6 +7,7 @@
     <File>D:/Programming/C#/Frogs/Frogs/Content/Achive.wav</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Cursor.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Fall.wav</File>
+    <File>D:/Programming/C#/Frogs/Frogs/Content/Fly.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/frog.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Jump.wav</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/outTongue1.wav</File>
@@ -17,6 +18,7 @@
     <File>D:/Programming/C#/Frogs/Frogs/Content/TitleScreen.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

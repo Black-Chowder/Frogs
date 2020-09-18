@@ -19,10 +19,13 @@ namespace Frogs.src.Entities
 
         public static SoundEffect achive;
 
+        public static Texture2D fly;
+
         public static void LoadContent(ContentManager Content)
         {
             font = Content.Load<SpriteFont>(@"Score");
             achive = Content.Load<SoundEffect>(@"Achive");
+            fly = Content.Load<Texture2D>(@"Fly");
         }
     }
     public class GoalHandler : Entity
@@ -77,17 +80,20 @@ namespace Frogs.src.Entities
     public class Goal : Entity
     {
         //Hitbox Variables
-        Hitbox myHitbox = new Hitbox(0, 0, 10, 10);
+        Hitbox myHitbox = new Hitbox(-20*Camera.gameScale, -20 * Camera.gameScale, 20 * Camera.gameScale, 20 * Camera.gameScale);
 
         Boolean foundPlayer = false;
         List<int> playerIndexes;
 
         //Testing Variables
-        private Boolean drawHitbox = true;
+        private Boolean drawHitbox = false;
 
         public Goal(float x, float y) : base("goal", x, y)
         {
             playerIndexes = new List<int>();
+
+            width = 40 * Camera.gameScale;
+            height = 40 * Camera.gameScale;
         }
 
         public override void Update()
@@ -140,7 +146,7 @@ namespace Frogs.src.Entities
             {
                 Texture2D texture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
                 texture.SetData<Color>(new Color[] { Color.White });
-                spriteBatch.Begin();
+                spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
                 //Draw Hitbox
                 spriteBatch.Draw(texture,
@@ -150,6 +156,14 @@ namespace Frogs.src.Entities
                 spriteBatch.End();
                 texture.Dispose();
             }
+
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            spriteBatch.Draw(GoalSprites.fly,
+                new Rectangle((int)(x + width/4 - Camera.X), (int)(y - Camera.Y), (int)(width), (int)(height)),
+                Color.White);
+
+            spriteBatch.End();
         }
     }
 }

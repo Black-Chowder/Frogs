@@ -78,6 +78,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Fly.xnb" />
     <None Include="Content\SoundFX\Achive.xnb" />
     <None Include="Content\Cursor.xnb" />
     <None Include="Content\SoundFX\Fall.xnb" />

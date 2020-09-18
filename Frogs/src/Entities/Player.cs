@@ -598,6 +598,7 @@ namespace New_Physics.Entities
             if (isAttacking) return;
             //animation = "prepSling";
             if (isSlinging) return;
+            if (!((Gravity)getTrait("gravity")).grounded && !isSwinging) return;
             isSlinging = true;
             startingX = mouse.X;
             startingY = mouse.Y;

@@ -18,6 +18,7 @@ namespace Frogs.src
         public static string gamestate = "startScreen";
 
         private static StartScreen startScreen;
+        private static HelpScreen helpScreen;
         private static CursorHandler cursorHandler;
 
         private static SoundEffect effect;
@@ -29,6 +30,7 @@ namespace Frogs.src
             EntityHandler.Init();
 
             startScreen = new StartScreen();
+            helpScreen = new HelpScreen();
             cursorHandler = new CursorHandler();
         }
 
@@ -38,7 +40,11 @@ namespace Frogs.src
             {
                 case "startScreen":
                     startScreen.Update();
-                    if (startScreen.Begin) gamestate = "initLevel";
+                    if (startScreen.Begin) gamestate = "help";
+                    break;
+                case "help":
+                    helpScreen.Update();
+                    if (helpScreen.Begin) gamestate = "initLevel";
                     break;
                 case "initLevel":
                     Level_Loader.LoadLevel();
@@ -61,6 +67,7 @@ namespace Frogs.src
             GoalSprites.LoadContent(Content);
             cursorHandler.LoadContent(Content);
             PlatformSprites.LoadContent(Content);
+            helpScreen.LoadContent(Content);
 
             effect = Content.Load<SoundEffect>(@"Achive");
         }
@@ -70,6 +77,7 @@ namespace Frogs.src
             graphicsDevice.Clear(Color.CornflowerBlue);
             EntityHandler.Draw(spriteBatch, graphicsDevice);
             if (gamestate == "startScreen") startScreen.Draw(spriteBatch, graphicsDevice);
+            else if (gamestate == "help") helpScreen.Draw(spriteBatch, graphicsDevice);
             cursorHandler.Draw(spriteBatch, graphicsDevice);
         }
     }

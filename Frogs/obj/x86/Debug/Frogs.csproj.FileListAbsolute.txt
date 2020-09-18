@@ -58,3 +58,6 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Jump.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\outTongue1.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\outTongue2.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Fly.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\How To Play.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\SmallButton.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\HowToPlay.xnb

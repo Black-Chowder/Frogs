@@ -1,10 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/Programming/C#/Frogs/Frogs/Content/Achive.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Achive.xnb","SoundEffectProcessor","SoundEffectContent",42554,42615,0.2951765
 "D:/Programming/C#/Frogs/Frogs/Content/Cursor.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Cursor.xnb","TextureProcessor","Texture2DContent",260,341,0.2104698
+"D:/Programming/C#/Frogs/Frogs/Content/Fail.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Fail.xnb","SoundEffectProcessor","SoundEffectContent",11590,11651,0.2319719
 "D:/Programming/C#/Frogs/Frogs/Content/Fall.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Fall.xnb","SoundEffectProcessor","SoundEffectContent",17258,17319,0.1505969
 "D:/Programming/C#/Frogs/Frogs/Content/Fly.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Fly.xnb","TextureProcessor","Texture2DContent",139,229,0.004986
 "D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0189494
-"D:/Programming/C#/Frogs/Frogs/Content/How To Play.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/How To Play.xnb","TextureProcessor","Texture2DContent",107711,8294485,0.2992002
+"D:/Programming/C#/Frogs/Frogs/Content/How To Play.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/How To Play.xnb","TextureProcessor","Texture2DContent",107711,8294485,0.211459
 "D:/Programming/C#/Frogs/Frogs/Content/Jump.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Jump.xnb","SoundEffectProcessor","SoundEffectContent",12422,12483,0.1625659
 "D:/Programming/C#/Frogs/Frogs/Content/outTongue1.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/outTongue1.xnb","SoundEffectProcessor","SoundEffectContent",10188,10249,0.1835101
 "D:/Programming/C#/Frogs/Frogs/Content/outTongue2.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/outTongue2.xnb","SoundEffectProcessor","SoundEffectContent",41494,41555,0.1556071

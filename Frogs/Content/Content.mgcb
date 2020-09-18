@@ -31,6 +31,12 @@
 /processorParam:TextureFormat=Color
 /build:Cursor.png
 
+#begin Fail.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fail.wav
+
 #begin Fall.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

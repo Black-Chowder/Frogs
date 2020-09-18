@@ -66,10 +66,16 @@ namespace New_Physics.Entities
 
     public class Player : Entity
     {
+        // <Misc Variables>
         private float speed = 2.2f * Camera.gameScale;
         MouseState mouse;
 
         Boolean isFacingRight = true;
+
+        float maxYVel;
+        float fallTimer = 0;
+        float fallTimerMax = 180;
+        // </Misc Variables>
 
         // <Animation Variables>
         String animation = "neutral";
@@ -142,6 +148,8 @@ namespace New_Physics.Entities
             //hitboxes.Add(new Hitbox(-25, 56, this.width, 5));
 
             addTrait(new Rigidbody(this, hitboxes, false));
+
+            maxYVel = height * Camera.gameScale;
         }
 
         public override void Update()
@@ -191,6 +199,21 @@ namespace New_Physics.Entities
             //Suggest lean while swinging
             //if (keys.IsKeyDown(Keys.A)) swingLean(false);
             //if (keys.IsKeyDown(Keys.D)) swingLean(true);
+
+            //Regulates Gravitational Speed
+            if (dy >= maxYVel)
+            {
+                dy = maxYVel;
+                fallTimer += 1;
+                if (fallTimer >= fallTimerMax)
+                {
+                    GameHandler.gamestate = "die";
+                }
+            }
+            else
+            {
+                fallTimer = 0;
+            }
 
 
             //Save current position before moving

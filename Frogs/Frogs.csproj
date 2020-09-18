@@ -83,6 +83,7 @@
     <None Include="Content\SmallButton.xnb" />
     <None Include="Content\SoundFX\Achive.xnb" />
     <None Include="Content\Cursor.xnb" />
+    <None Include="Content\SoundFX\Fail.xnb" />
     <None Include="Content\SoundFX\Fall.xnb" />
     <None Include="Content\frog.xnb" />
     <None Include="Content\SoundFX\Jump.xnb" />

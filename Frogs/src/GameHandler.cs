@@ -22,6 +22,7 @@ namespace Frogs.src
         private static CursorHandler cursorHandler;
 
         private static SoundEffect effect;
+        private static SoundEffect fail;
 
         public static void Init(GraphicsDeviceManager graphics)
         {
@@ -44,16 +45,23 @@ namespace Frogs.src
                     break;
                 case "help":
                     helpScreen.Update();
-                    if (helpScreen.Begin) gamestate = "initLevel";
+                    if (helpScreen.Begin)
+                    {
+                        gamestate = "initLevel";
+                        effect.Play();
+                    }
                     break;
                 case "initLevel":
                     Level_Loader.LoadLevel();
-                    effect.Play();
                     gamestate = "level";
                     break;
                 case "level":
                     EntityHandler.Update();
                     Camera.Update();
+                    break;
+                case "die":
+                    gamestate = "initLevel";
+                    fail.Play();
                     break;
             }
             cursorHandler.Update();
@@ -70,6 +78,7 @@ namespace Frogs.src
             helpScreen.LoadContent(Content);
 
             effect = Content.Load<SoundEffect>(@"Achive");
+            fail = Content.Load<SoundEffect>(@"Fail");
         }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)

@@ -44,6 +44,7 @@ public class MapHandler{
   //Constructor
   MapHandler(){
     map = new Map();
+    createMap();
   }
   
   //Main
@@ -205,5 +206,46 @@ public class MapHandler{
       if (found) break;
     }
     
+  }
+  
+  void createMap(){
+    String[] rawMap = loadStrings("map.txt");
+    
+    for (int i = 0; i < split(split(rawMap[0], ':')[1], ';').length-1; i++){
+      String[] rawData = split(split(split(rawMap[0], ':')[1], ';')[i], ',');
+      
+      println("Done: " + i);
+      println("Map Data = " + rawData[0] + ", " + rawData[1] + ", " + rawData[2] + ", " + rawData[3] + ", " + rawData[4]);
+      println("");
+      EntityHandler.entities.add(new Entity(rawData[0], float(rawData[1]), float(rawData[2]), float(rawData[3]), float(rawData[4])));
+      
+    }
+    
+    /*
+                for (int i = 0; i < rawMapData.Split(':')[1].Split(';').Length; i++)
+            {
+                String[] rawData = rawMapData.Split(':')[1].Split(';')[i].Split(',');
+
+                switch (rawData[0])
+                {
+                    case "player":
+                        EntityHandler.entities.Add(new Player(float.Parse(rawData[1]), float.Parse(rawData[2])));
+                        //Console.WriteLine("Player Created");
+                        break;
+                    case "platform":
+                        EntityHandler.entities.Add(new Platform(
+                            float.Parse(rawData[1]),
+                            float.Parse(rawData[2]),
+                            float.Parse(rawData[3]),
+                            float.Parse(rawData[4])));
+                        //Console.WriteLine("Platform Created");
+                        break;
+                    case "goal":
+                        goalHandler.createGoal(float.Parse(rawData[1]), float.Parse(rawData[2]));
+                        //Console.WriteLine("Goal Created");
+                        break;
+                }
+            }
+    */
   }
 }

@@ -42,7 +42,15 @@ class Entity{
   }
   
   void Draw(){
-    fill(255, 0, 0);
+    if (classId == "platform"){
+      fill(0, 0, 0);
+    }
+    else if (classId == "player"){
+      fill(0, 255, 0);
+    }
+    else{
+      fill(255, 0, 0);
+    }
     rect(this.X - camera.X, this.Y - camera.Y, this.Width, this.Height);
   }
 }

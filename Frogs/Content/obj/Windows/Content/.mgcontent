@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Achive.wav</File>
+    <File>D:/Programming/C#/Frogs/Frogs/Content/Arrow.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Cursor.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Fail.wav</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Fall.wav</File>
@@ -21,6 +22,7 @@
     <File>D:/Programming/C#/Frogs/Frogs/Content/TitleScreen.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

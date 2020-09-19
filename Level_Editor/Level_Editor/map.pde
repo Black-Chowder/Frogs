@@ -12,7 +12,10 @@ PrintWriter output;
 public String[] inventory = {
   "platform",
   "player",
-  "goal"
+  "goal",
+  "arrow1",
+  "arrow2",
+  "arrow3"
 };
 
 public String item = inventory[0];

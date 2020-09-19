@@ -48,6 +48,15 @@ class Entity{
     else if (classId == "player"){
       fill(0, 255, 0);
     }
+    else if (classId == "arrow1"){
+      fill(0, 0, 255);
+    }
+    else if (classId == "arrow2"){
+      fill(0, 255, 255);
+    }
+    else if (classId == "arrow3"){
+      fill(255, 255, 0);
+    }
     else{
       fill(255, 0, 0);
     }

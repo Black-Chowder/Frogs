@@ -76,6 +76,7 @@ namespace Frogs.src
             cursorHandler.LoadContent(Content);
             PlatformSprites.LoadContent(Content);
             helpScreen.LoadContent(Content);
+            ArrowSprites.LoadContent(Content);
 
             effect = Content.Load<SoundEffect>(@"Achive");
             fail = Content.Load<SoundEffect>(@"Fail");

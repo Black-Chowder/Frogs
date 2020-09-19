@@ -45,6 +45,24 @@ namespace Frogs.src
                         goalHandler.createGoal(float.Parse(rawData[1]) * Camera.gameScale/.53f, float.Parse(rawData[2]) * Camera.gameScale / .53f);
                         //Console.WriteLine("Goal Created");
                         break;
+                    case "arrow1":
+                        EntityHandler.entities.Add(new Arrow(
+                            float.Parse(rawData[1]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[2]) * Camera.gameScale / .53f,
+                            1));
+                        break;
+                    case "arrow2":
+                        EntityHandler.entities.Add(new Arrow(
+                            float.Parse(rawData[1]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[2]) * Camera.gameScale / .53f,
+                            2));
+                        break;
+                    case "arrow3":
+                        EntityHandler.entities.Add(new Arrow(
+                            float.Parse(rawData[1]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[2]) * Camera.gameScale / .53f,
+                            3));
+                        break;
                 }
             }
         }

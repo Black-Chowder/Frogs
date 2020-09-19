@@ -31,8 +31,8 @@ namespace Frogs.src.Entities
     public class GoalHandler : Entity
     {
         List<Goal> goals;
-        int score = 0;
-        int maxScore = 0;
+        public int score = 0;
+        public int maxScore = 0;
 
         public GoalHandler() : base("goalHandler", 0, 0)
         {

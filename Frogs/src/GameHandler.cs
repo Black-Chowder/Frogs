@@ -58,10 +58,14 @@ namespace Frogs.src
                 case "level":
                     EntityHandler.Update();
                     Camera.Update();
+                    //if (((GoalHandler)(EntityHandler.entities[0])).score == ((GoalHandler)(EntityHandler.entities[0])).maxScore) gamestate = "win";
                     break;
                 case "die":
                     gamestate = "initLevel";
                     fail.Play();
+                    break;
+                case "win":
+                    //TODO: probably never, but this is where it would be impelmented
                     break;
             }
             cursorHandler.Update();

@@ -33,7 +33,7 @@ namespace Frogs
         {
             // TODO: Add your initialization logic here            
 
-            GameHandler.Init(graphics);
+            GameHandler.Init(graphics, GraphicsDevice);
 
             base.Initialize();
             

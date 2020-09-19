@@ -366,7 +366,7 @@ namespace New_Physics.Entities
                 //Draw Tongue
                 Utils.DrawLine(spriteBatch,
                     new Vector2((int)(sox - Camera.X), (int)(soy - Camera.Y)),
-                    new Vector2((int)(x - Camera.X), (int)(y - 45 - Camera.Y)),
+                    new Vector2((int)(x - Camera.X), (int)(y - 45*Camera.gameScale - Camera.Y)),
                     new Color(70, 135, 143),
                     5f);
                 

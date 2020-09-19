@@ -30,19 +30,19 @@ namespace Frogs.src
                 switch (rawData[0])
                 {
                     case "player":
-                        EntityHandler.entities.Add(new Player(float.Parse(rawData[1]), float.Parse(rawData[2])));
+                        EntityHandler.entities.Add(new Player(float.Parse(rawData[1]) * Camera.gameScale / .53f, float.Parse(rawData[2]) * Camera.gameScale / .53f));
                         //Console.WriteLine("Player Created");
                         break;
                     case "platform":
                         EntityHandler.entities.Add(new Platform(
-                            float.Parse(rawData[1]),
-                            float.Parse(rawData[2]),
-                            float.Parse(rawData[3]),
-                            float.Parse(rawData[4])));
+                            float.Parse(rawData[1]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[2]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[3]) * Camera.gameScale / .53f,
+                            float.Parse(rawData[4]) * Camera.gameScale / .53f));
                         //Console.WriteLine("Platform Created");
                         break;
                     case "goal":
-                        goalHandler.createGoal(float.Parse(rawData[1]), float.Parse(rawData[2]));
+                        goalHandler.createGoal(float.Parse(rawData[1]) * Camera.gameScale/.53f, float.Parse(rawData[2]) * Camera.gameScale / .53f);
                         //Console.WriteLine("Goal Created");
                         break;
                 }

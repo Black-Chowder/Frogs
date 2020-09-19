@@ -62,3 +62,7 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\How To Play.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\SmallButton.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\HowToPlay.xnb
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Fail.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Frogs.exe.manifest
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Frogs.application
+D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.exe.manifest
+D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.application

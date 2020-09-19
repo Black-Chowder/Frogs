@@ -24,10 +24,10 @@ namespace Frogs.src
         private static SoundEffect effect;
         private static SoundEffect fail;
 
-        public static void Init(GraphicsDeviceManager graphics)
+        public static void Init(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice)
         {
             Camera.SetDimensions(graphics, 1024, 576);
-            //Camera.SetDimensions(graphics, GraphicsDevice);
+            //Camera.SetDimensions(graphics, graphicsDevice);
             EntityHandler.Init();
 
             startScreen = new StartScreen();

@@ -10,6 +10,7 @@ using Frogs.src.Entities;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Frogs.src
 {
@@ -23,6 +24,9 @@ namespace Frogs.src
 
         private static SoundEffect effect;
         private static SoundEffect fail;
+        private static Song song;
+
+        private static Boolean first = true;
 
         public static void Init(GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice)
         {
@@ -37,6 +41,10 @@ namespace Frogs.src
 
         public static void Update()
         {
+            MediaPlayer.IsRepeating = true;
+            if (first) MediaPlayer.Play(song);
+            first = false;
+
             switch (gamestate)
             {
                 case "startScreen":
@@ -84,6 +92,7 @@ namespace Frogs.src
 
             effect = Content.Load<SoundEffect>(@"Achive");
             fail = Content.Load<SoundEffect>(@"Fail");
+            song = Content.Load<Song>(@"LuckyRubberDucky");
         }
 
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)

@@ -67,3 +67,5 @@ D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Frogs.application
 D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.exe.manifest
 D:\Programming\C#\Frogs\Frogs\obj\x86\Debug\Frogs.application
 D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\Arrow.xnb
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\LuckyRubberDucky.wma
+D:\Programming\C#\Frogs\Frogs\bin\Windows\x86\Debug\Content\LuckyRubberDucky.xnb

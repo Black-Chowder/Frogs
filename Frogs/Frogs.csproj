@@ -117,6 +117,7 @@
     <None Include="Content\SoundFX\Fall.xnb" />
     <None Include="Content\frog.xnb" />
     <None Include="Content\SoundFX\Jump.xnb" />
+    <None Include="Content\SoundFX\LuckyRubberDucky.xnb" />
     <None Include="Content\SoundFX\outTongue1.xnb" />
     <None Include="Content\SoundFX\outTongue2.xnb" />
     <None Include="Content\Platform.xnb" />

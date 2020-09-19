@@ -8,6 +8,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/Programming/C#/Frogs/Frogs/Content/frog.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/frog.xnb","TextureProcessor","Texture2DContent",688,172885,0.0189494
 "D:/Programming/C#/Frogs/Frogs/Content/How To Play.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/How To Play.xnb","TextureProcessor","Texture2DContent",107711,8294485,0.211459
 "D:/Programming/C#/Frogs/Frogs/Content/Jump.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Jump.xnb","SoundEffectProcessor","SoundEffectContent",12422,12483,0.1625659
+"D:/Programming/C#/Frogs/Frogs/Content/LuckyRubberDucky.mp3","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/LuckyRubberDucky.xnb","SongProcessor","SongContent",5033351,134,1.643079
 "D:/Programming/C#/Frogs/Frogs/Content/outTongue1.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/outTongue1.xnb","SoundEffectProcessor","SoundEffectContent",10188,10249,0.1835101
 "D:/Programming/C#/Frogs/Frogs/Content/outTongue2.wav","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/outTongue2.xnb","SoundEffectProcessor","SoundEffectContent",41494,41555,0.1556071
 "D:/Programming/C#/Frogs/Frogs/Content/Platform.png","D:/Programming/C#/Frogs/Frogs/Content/bin/Windows/Platform.xnb","TextureProcessor","Texture2DContent",175,985,0.0139918

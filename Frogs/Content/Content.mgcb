@@ -97,6 +97,12 @@
 /processorParam:Quality=Best
 /build:Jump.wav
 
+#begin LuckyRubberDucky.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:LuckyRubberDucky.mp3
+
 #begin outTongue1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

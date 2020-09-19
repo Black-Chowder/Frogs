@@ -31,14 +31,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Frogs.exe" size="186336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Frogs.exe" size="186848">
       <assemblyIdentity name="Frogs" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IMgKmF/jrp+DeGJmuKhHzaRf2T8sckKwDuB55PSimac=</dsig:DigestValue>
+        <dsig:DigestValue>2xrTTzcQBmt7VK8uLg/NjbPAun12XxWPh+k66NJp8XY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -226,6 +226,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>d2X4hGKb8lEl+THVj4lyVWK54qPZruGNL0uC6K/xuCw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\LuckyRubberDucky.wma" size="6448682">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>gzkcHVMwwoWdzwFXoTPBN6uCSFu7l3ZUc415m7wBXeU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\LuckyRubberDucky.xnb" size="134">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>cjjN1IpvJd9tVN8kPkAiYtUJtQWrGKf6yLsrJ/DFOYc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\outTongue1.xnb" size="10249">

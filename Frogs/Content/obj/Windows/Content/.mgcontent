@@ -13,6 +13,7 @@
     <File>D:/Programming/C#/Frogs/Frogs/Content/frog.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/How To Play.png</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Jump.wav</File>
+    <File>D:/Programming/C#/Frogs/Frogs/Content/LuckyRubberDucky.mp3</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/outTongue1.wav</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/outTongue2.wav</File>
     <File>D:/Programming/C#/Frogs/Frogs/Content/Platform.png</File>
@@ -22,6 +23,7 @@
     <File>D:/Programming/C#/Frogs/Frogs/Content/TitleScreen.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -93,7 +93,7 @@ namespace New_Physics.Entities
                         {
                             spriteBatch.Draw(PlatformSprites.ss,
                                 new Rectangle((int)(this.x - Camera.X), (int)(this.y + height - h - Camera.Y), w, h),
-                                sourceRectangle: PlatformSprites.sprites[3],
+                                sourceRectangle: PlatformSprites.sprites[5],
                                 color: Color.White);
                         }
                         //If just left of platform
@@ -117,7 +117,7 @@ namespace New_Physics.Entities
                                 color: Color.White);
                         }
                         //If bottom right of platform
-                        else if (y == height - h)
+                        else if (y >= height - h)
                         {
                             spriteBatch.Draw(PlatformSprites.ss,
                                 new Rectangle((int)(this.x + width - w - Camera.X), (int)(this.y + height - h - Camera.Y), w, h),
@@ -145,7 +145,7 @@ namespace New_Physics.Entities
                                 color: Color.White);
                         }
                         //If bottom middle of platform
-                        else if (y >= height - 50)
+                        else if (y >= height - h)
                         {
                             spriteBatch.Draw(PlatformSprites.ss,
                                 new Rectangle((int)(this.x + x - Camera.X), (int)(this.y + height - h - Camera.Y), w, h),

@@ -8,150 +8,120 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Frogs.src;
+using Black_Magic.src;
 
 namespace New_Physics.Traits
 {
+    //WARNING: DO NOT USE THIS SPECIFIC FILE OF CODE AS A TEMPLATE FOR ANY FUTURE PROJECTS
     public class Hitbox
     {
+        Entity parent;
         public float x;
         public float y;
-
         public float diffX;
         public float diffY;
-
-        public float width;
+        public float width; //Width is repurposed to be radius when isCircle = true
         public float height;
+        public Boolean isCircle = false;
 
-        public Hitbox(float x, float y, float width, float height)
+        //Collision Data
+        public Entity left = null;
+        public Entity right = null;
+        public Entity top = null;
+        public Entity bottom = null;
+
+        //Constructor(s)
+        //Auto-Generate (square) Hitbox
+        public Hitbox(Entity parent)
         {
-            this.diffX = x;
-            this.diffY = y;
+            this.parent = parent;
+            diffX = 0;
+            diffY = 0;
+            width = parent.width;
+            height = parent.height;
+
+            Update();
+        }
+
+        //Square Hitbox
+        public Hitbox(Entity parent, float diffX, float diffY, float width, float height)
+        {
+            this.parent = parent;
+            this.diffX = diffX;
+            this.diffY = diffY;
             this.width = width;
             this.height = height;
+
+            Update();
         }
-    }
 
-    public class CollisionData
-    {
-        public Boolean top = false;
-        public Boolean bottom = false;
-        public Boolean left = false;
-        public Boolean right = false;
-
-        public int cTop;
-        public int cBottom;
-        public int cLeft;
-        public int cRight;
-
-        public int hTop;
-        public int hBottom;
-        public int hLeft;
-        public int hRight;
-
-        public int shTop;
-        public int shBottom;
-        public int shLeft;
-        public int shRight;
-
-        public Boolean oTop = false;
-        public Boolean oBottom = false;
-        public Boolean oLeft = false;
-        public Boolean oRight = false;
-
-        public List<int> cIndexes = new List<int>();
-
-        public CollisionData() { }
-
-        public void Reset()
+        //Circle Hitbox
+        public Hitbox(Entity parent, float diffX, float diffY, float radius)
         {
-            top = false;
-            bottom = false;
-            left = false;
-            right = false;
+            this.parent = parent;
+            this.diffX = diffX;
+            this.diffY = diffY;
+            this.width = radius;
+            this.height = radius;
+            isCircle = true;
 
-            oTop = false;
-            oBottom = false;
-            oLeft = false;
-            oRight = false;
-
-            cIndexes = new List<int>();
+            Update();
         }
-        //, entityIndex, entityHitboxIndex, selfHitboxIndex
 
-        public void SaveIndex(Entity entity)
+        //Updates position of hitboxes relative to parent
+        public void Update()
         {
-            for (int i = 0; i < EntityHandler.entities.Count; i++)
+            x = parent.x + diffX;
+            y = parent.y + diffY;
+        }
+
+        public void resetCollisionData()
+        {
+            left = null;
+            right = null;
+            top = null;
+            bottom = null;
+        }
+
+        //Gets distance from edge of hitbox to a given point
+        public float getDistance(Vector2 point)
+        {
+            //Calculations for circle
+            if (isCircle)
             {
-                if (entity == EntityHandler.entities[i])
-                {
-                    cIndexes.Add(i);
-                    return;
-                }
+                float cx = x;
+                float cy = y;
+                float cr = width / 2;
+
+                return Utils.getDistance(point.X, point.Y, cx, cy) - cr;
             }
+
+            //Calculations for rectangle
+            // Ripped from  https://www.youtube.com/watch?v=Cp5WWtMoeKg&t=45s
+            // signed -> if point is inside the rect, then dist is negative
+            float px = point.X;
+            float py = point.Y;
+            //These are myself I assume
+            float rx = x;
+            float ry = y;
+            float rw = width;
+            float rh = height;
+
+            float ox = rx + rw / 2;
+            float oy = ry + rh / 2;
+            float offsetX = Math.Abs(px - ox) - rw / 2;
+            float offsetY = Math.Abs(py - oy) - rh / 2;
+
+            float unsignedDist = Utils.getDistance(0, 0, Math.Max(offsetX, 0), Math.Max(offsetY, 0));
+            float distInsideBox = Math.Max(Math.Min(offsetX, 0), Math.Min(offsetY, 0));
+            return unsignedDist + distInsideBox;
         }
 
-        public void SaveIndex(int entityIndex)
-        {
-            cIndexes.Add(entityIndex);
-        }
-
-        public void SetTop(Entity entity, int entityIndex, int entityHitboxIndex, int selfHitboxIndex)
-        {
-            top = true;
-            cTop = entityIndex;
-            hTop = entityHitboxIndex;
-            oTop = entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride ? true : false;
-            shTop = selfHitboxIndex;
-        }
-
-        public void SetBottom(Entity entity, int entityIndex, int entityHitboxIndex, int selfHitboxIndex)
-        {
-            bottom = true;
-            cBottom = entityIndex;
-            hBottom = entityHitboxIndex;
-            oBottom = entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride ? true : false;
-            shBottom = selfHitboxIndex;
-        }
-
-        public void SetLeft(Entity entity, int entityIndex, int entityHitboxIndex, int selfHitboxIndex)
-        {
-            left = true;
-            cLeft = entityIndex;
-            hLeft = entityHitboxIndex;
-            oLeft = entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride ? true : false;
-            shLeft = selfHitboxIndex;
-        }
-
-        public void SetRight(Entity entity, int entityIndex, int entityHitboxIndex, int selfHitboxIndex)
-        {
-            right = true;
-            cRight = entityIndex;
-            hRight = entityHitboxIndex;
-            oRight = entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride ? true : false;
-            shRight = selfHitboxIndex;
-        }
-
-        private int FindEntity(Entity entity)
-        {
-            for (int i = 0; i < EntityHandler.entities.Count; i++)
-            {
-                if (EntityHandler.entities[i] == entity)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
+        // Getters / Setters
+        //TODO: Create getters and setters
     }
-
-
     public class Rigidbody : Trait
     {
-        Entity parent;
-
-        //Stores collision data
-        public CollisionData collisionData = new CollisionData();
-
         //Stores hitboxes
         public List<Hitbox> hitboxes = new List<Hitbox>();
 
@@ -159,221 +129,165 @@ namespace New_Physics.Traits
         public Boolean isOverride = false;
 
         //isTotal means all rigidbody entities will collide with this entity
-        //If set to false, it means that only override rigidbodies will collide with object
-        public Boolean isTotal = true;  //<<== May Remove.  Not implemented Yet
+        public Boolean isTotal = false;  //<<== May Remove.  Not implemented Yet
 
-        private int entityIndex;
-        private int entityHitboxIndex;
-        private int selfHitboxIndex;
+        public Boolean isCircle = false; //Maybe change (probably change)
 
-        public Rigidbody(Entity parent) : base("rigidbody", parent)
+        //The number of rays the rigibody samples from 
+        public int raysPerSide = 4;
+
+        //Thickness from how far inside the hitbox the collision detection rays will be cast
+        public float skinWidth = 5;
+
+        // <Temporary Testing Variables>
+        public List<Rectangle> testRects = new List<Rectangle>();
+        public Boolean testBool = false;
+        public List<Entity> doNotCollide = new List<Entity>();
+        // </Temporary Testing Variables>
+
+        //Constructor(s)
+        const String traitName = "rigidbody";
+        public Rigidbody(Entity parent, Boolean isOverride = false, Boolean isCircle = false) : base(traitName, parent)
         {
-            List<Hitbox> temp = new List<Hitbox>();
-            temp.Add(new Hitbox(0, 0, parent.width, parent.height));
+            this.isOverride = isOverride;
 
-            Init(parent, temp, false, true);
-        }
-        public Rigidbody(Entity parent, Boolean isOverride) : base("rigidbody", parent)
-        {
-            List<Hitbox> temp = new List<Hitbox>();
-            temp.Add(new Hitbox(0, 0, parent.width, parent.height));
-
-            Init(parent, temp, isOverride, true);
-        }
-
-        public Rigidbody(Entity parent, List<Hitbox> hitboxes, Boolean isOverride) : base("rigidbody", parent)
-        {
-            Init(parent, hitboxes, isOverride, true);
-        }
-
-        public Rigidbody(Entity parent, List<Hitbox> hitboxes, Boolean isOverride, Boolean isTotal) : base("rigidbody", parent)
-        {
-            Init(parent, hitboxes, isOverride, isTotal);
+            //Create Hitbox
+            if (isCircle) hitboxes.Add(new Hitbox(parent, 0, 0, parent.width));
+            else hitboxes.Add(new Hitbox(parent, 0, 0, parent.width, parent.height));
         }
 
-        private void Init(Entity parent, List<Hitbox> hitboxes, Boolean isOverride, Boolean isTotal)
+        //Pass in collision method
+        //TODO
+
+        //Allows entity to create its own hitboxes
+        public Rigidbody(Entity parent, List<Hitbox> hitboxes, Boolean isOverride = false) : base(traitName, parent)
         {
-            this.parent = parent;
             this.isOverride = isOverride;
             this.hitboxes = hitboxes;
-            this.isTotal = isTotal;
         }
 
-        public override void Update()
+
+
+        //Gets the distance from the edge of the shape (only accepts circle and rectangle at the moment)
+        //and a point given to it.
+        public float getDistance(Vector2 pos)
         {
-
-            if (isOverride) return;
-
-            collisionData.Reset();
-
-            //Sets grounded to false if applicable
-            Boolean hasGravity = parent.hasTrait("gravity");
-            if (hasGravity) ((Gravity)parent.getTrait("gravity")).grounded = false;
-
-            for (int i = 0; i < EntityHandler.entities.Count; i++)
+            float shortestDist = float.PositiveInfinity;
+            foreach (Hitbox hitbox in hitboxes)
             {
-                Entity entity = EntityHandler.entities[i];
-
-                entityIndex = i;
-
-                //Skips entity if entity is self
-                if (parent == entity) continue;
-
-                //Skips entity if entity doens't have rigidbody
-                if (!entity.hasTrait("rigidbody")) continue;
-
-                //Skips entity if entity.isTotal == false
-                if (!((Rigidbody)entity.getTrait("rigidbody")).isTotal) continue;
-
-                if (!((Rigidbody)parent.getTrait("rigidbody")).isTotal && !((Rigidbody)entity.getTrait("rigidbody")).isOverride)
+                hitbox.Update();
+                float dist = hitbox.getDistance(pos);
+                if (dist < shortestDist)
                 {
-                    isTotalHandler(entity);
-                    continue;
-                }
-
-                //Checks if entity has override rigidbody
-                Boolean isOverride = false;
-                if (entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride) isOverride = true;
-
-                for (int j = 0; j < hitboxes.Count; j++)
-                {
-                    selfHitboxIndex = j;
-                    for (int k = 0; k < ((Rigidbody)entity.getTrait("rigidbody")).hitboxes.Count; k++)
-                    {
-                        updateHitboxes();
-                        ((Rigidbody)entity.getTrait("rigidbody")).updateHitboxes();
-
-                        entityHitboxIndex = k;
-
-                        calculateCollision(parent, hitboxes[j], entity, ((Rigidbody)entity.getTrait("rigidbody")).hitboxes[k], isOverride);
-                    }
+                    shortestDist = dist;
                 }
             }
+            return shortestDist;
         }
 
         public void updateHitboxes()
         {
-            for (int i = 0; i < hitboxes.Count; i++)
+            foreach (Hitbox hitbox in hitboxes)
             {
-                hitboxes[i].x = parent.x - hitboxes[i].diffX;
-                hitboxes[i].y = parent.y - hitboxes[i].diffY;
+                hitbox.Update();
             }
         }
 
-        private void isTotalHandler(Entity entity)
+        //Actual Updating Part//
+        public override void Update()
         {
-            //Checks if entity has override rigidbody
-            Boolean isOverride = false;
-            if (entity.hasTrait("rigidbody") && ((Rigidbody)entity.getTrait("rigidbody")).isOverride) isOverride = true;
+            //Clear Testing Variables
+            testRects = new List<Rectangle>();
+            testBool = false;
 
-            for (int j = 0; j < hitboxes.Count; j++)
+            updateHitboxes();
+
+            if (isOverride) return;
+
+            Black_Magic.src.Ray ray;
+            Vector2? rayData;
+
+            Boolean hasGravity = parent.hasTrait("gravity");
+            Gravity gravity = (Gravity)parent.getTrait("gravity");
+            gravity.grounded = false;
+
+            //TODO: if !isOverride, then change self variables and others to properly apply forces
+
+            foreach (Hitbox hitbox in hitboxes)
             {
-                selfHitboxIndex = j;
-                for (int k = 0; k < ((Rigidbody)entity.getTrait("rigidbody")).hitboxes.Count; k++)
+                hitbox.resetCollisionData();
+                for (int i = 0; i < raysPerSide; i++)
                 {
                     updateHitboxes();
-                    ((Rigidbody)entity.getTrait("rigidbody")).updateHitboxes();
+                    //Calculate Ray Casting Points
+                    float raycastY = hitbox.y + skinWidth + (hitbox.height - skinWidth * 2) * i / (raysPerSide - 1);
+                    float raycastX = hitbox.x + skinWidth + (hitbox.width - skinWidth * 2) * i / (raysPerSide - 1);
 
-                    entityHitboxIndex = k;
+                    //Local Variable Used For Storing Entity Currently Colliding With:
+                    Entity entity;
+                    Rigidbody entityRigidbody;
 
-                    Hitbox parentHitbox = hitboxes[j];
-                    Hitbox entityHitbox = ((Rigidbody)entity.getTrait("rigidbody")).hitboxes[k];
-
-                    if (Utils.rectCollision(parentHitbox.x + parent.dx, parentHitbox.y + parent.dy, parentHitbox.width, parentHitbox.height, entityHitbox.x, entityHitbox.y, entityHitbox.width, entityHitbox.height))
+                    //Top
+                    ray = new Black_Magic.src.Ray(raycastX, hitbox.y + skinWidth, (float)(Math.PI * 3 / 2));
+                    rayData = ray.cast(EntityHandler.entities, parent);
+                    if (rayData.HasValue && rayData.Value.Y > hitbox.y + parent.dy && parent.dy < 0)
                     {
-                        collisionData.SaveIndex(entity);
+                        entity = ray.getEntity();
+                        entityRigidbody = (Rigidbody)entity.getTrait(traitName);
+                        if (!entityRigidbody.isOverride) entity.dy = parent.dy;
+
+                        hitbox.top = entity;
+
+                        parent.dy = 0;
+                        parent.y = rayData.Value.Y - hitbox.diffY;
+                    }
+
+                    //Bottom
+                    ray = new Black_Magic.src.Ray(raycastX, hitbox.y + hitbox.height - skinWidth, (float)(Math.PI / 2));
+                    rayData = ray.cast(EntityHandler.entities, parent);
+                    if (rayData.HasValue && rayData.Value.Y < hitbox.y + hitbox.height + parent.dy && parent.dy > 0)
+                    {
+                        entity = ray.getEntity();
+                        entityRigidbody = (Rigidbody)entity.getTrait(traitName);
+                        if (!entityRigidbody.isOverride) entity.dy = parent.dy;
+
+                        hitbox.bottom = entity;
+                        if (hasGravity) gravity.grounded = true;
+
+                        parent.dy = 0;
+                        parent.y = rayData.Value.Y - hitbox.height - hitbox.diffY;
+                    }
+
+                    //Right
+                    ray = new Black_Magic.src.Ray(hitbox.x + hitbox.width - skinWidth, raycastY, 0);
+                    rayData = ray.cast(EntityHandler.entities, parent);
+                    if (rayData.HasValue && rayData.Value.X < hitbox.x + hitbox.width + parent.dx && parent.dx > 0)
+                    {
+                        entity = ray.getEntity();
+                        entityRigidbody = (Rigidbody)entity.getTrait(traitName);
+                        if (!entityRigidbody.isOverride) entity.dx = parent.dx;
+
+                        hitbox.left = entity;
+
+                        parent.dx = 0;
+                        parent.x = rayData.Value.X - hitbox.width - hitbox.diffX;
+                    }
+
+                    //Left
+                    ray = new Black_Magic.src.Ray(hitbox.x + skinWidth, raycastY, (float)(Math.PI));
+                    rayData = ray.cast(EntityHandler.entities, parent);
+                    if (rayData.HasValue && rayData.Value.X > hitbox.x + parent.dx && parent.dx < 0)
+                    {
+                        entity = ray.getEntity();
+                        entityRigidbody = (Rigidbody)entity.getTrait(traitName);
+                        if (!entityRigidbody.isOverride) entity.dx = parent.dx;
+
+                        hitbox.right = entity;
+
+                        parent.dx = 0;
+                        parent.x = rayData.Value.X - hitbox.diffX;
                     }
                 }
-            }
-        }
-
-        private void calculateCollision(Entity parent, Hitbox parentHitbox, Entity entity, Hitbox entityHitbox, Boolean isOverride)
-        {
-            //Checks if entity is colliding with parent
-            //Checking along y axis
-            if (Utils.rectCollision(parentHitbox.x, parentHitbox.y + parent.repDy, parentHitbox.width, parentHitbox.height, entityHitbox.x, entityHitbox.y, entityHitbox.width, entityHitbox.height))
-            {
-                //Colliding with bottom of parent
-                if (parentHitbox.y + parent.repDy < entityHitbox.y && !this.isOverride)
-                {
-                    if (!isOverride) entity.dy += parent.dy;
-                    parent.dy = 0;
-
-                    parent.y = entityHitbox.y - parentHitbox.height + parentHitbox.diffY;
-
-
-                    //Grounds parent if applicable
-                    if (parent.hasTrait("gravity")) ((Gravity)parent.getTrait("gravity")).grounded = true;
-
-                    //Update Collision Data
-                    collisionData.SetBottom(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-
-                //Colliding with top of parent and entity has override rigidbody
-                else if (isOverride)
-                {
-                    parent.dy = 0;
-                    parent.y = entityHitbox.y + entityHitbox.height + parentHitbox.diffY;
-                    
-                    //Update Collision Data
-                    collisionData.SetTop(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-
-                else
-                {
-                    if (!isOverride) entity.dy += parent.dy;
-                    parent.dy = 0;
-
-                    parent.y = entityHitbox.y + entityHitbox.height - parentHitbox.diffY;
-
-                    //Update Collision Data
-                    collisionData.SetTop(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-
-
-            }
-            //Checking along x axis
-            else if (Utils.rectCollision(parentHitbox.x + parent.repDx, parentHitbox.y + parent.repDy, parentHitbox.width, parentHitbox.height, entityHitbox.x, entityHitbox.y, entityHitbox.width, entityHitbox.height))
-            {
-                //Checks what side is colliding
-
-                //Colliding with left side of parent
-                if (parentHitbox.x < entityHitbox.x)
-                {
-                    if (!isOverride) entity.dx += parent.dx;
-                    parent.dx = 0;
-                    if (isOverride) parent.dx = 0;
-
-                    //Moves parent to corresponding side of entity
-                    parent.x = entityHitbox.x - parentHitbox.width - parent.dx + parentHitbox.diffX;
-
-                    //Update Collision Data
-                    collisionData.SetRight(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-                //Handles of entity is override (I haven't tested taking this part away yet)
-                else if (isOverride)
-                {
-                    parent.dx = 0;
-
-                    //Moves parent to corresponding side of entity
-                    parent.x = entityHitbox.x + entityHitbox.width + parentHitbox.diffX;
-
-                    //Update Collision Data
-                    collisionData.SetLeft(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-                //Colliding with right side of parent
-                else
-                {
-                    if (!isOverride) entity.dx += parent.dx;
-                    parent.dx = 0;
-
-                    //Moves parent to corresponding side of entity
-                    parent.x = entityHitbox.x + entityHitbox.width - parent.dx + parentHitbox.diffX;
-
-                    //Update Collision Data
-                    collisionData.SetLeft(entity, entityIndex, entityHitboxIndex, selfHitboxIndex);
-                }
-
             }
         }
     }

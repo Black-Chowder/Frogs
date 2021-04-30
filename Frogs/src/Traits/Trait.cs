@@ -10,7 +10,7 @@ namespace New_Physics.Traits
     public abstract class Trait
     {
         public string name;
-        Entity parent;
+        public Entity parent;
 
         public Trait(String name, Entity parent)
         {

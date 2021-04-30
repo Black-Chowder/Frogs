@@ -144,7 +144,7 @@ namespace New_Physics.Entities
             addTrait(new Timer(this, "timer", 300));
 
             List<Hitbox> hitboxes = new List<Hitbox>();
-            hitboxes.Add(new Hitbox(width/2, height/2, width, height));
+            hitboxes.Add(new Hitbox(this, -width/2, -height/2, width, height));
             //hitboxes.Add(new Hitbox(-25, 56, this.width, 5));
 
             addTrait(new Rigidbody(this, hitboxes, false));
@@ -159,7 +159,6 @@ namespace New_Physics.Entities
             mouse = Mouse.GetState();
 
 
-            
 
             //Modifying time
             if (keys.IsKeyDown(Keys.Down)) EntityHandler.modTm(.01f);
@@ -278,6 +277,8 @@ namespace New_Physics.Entities
 
             //Console.WriteLine(Camera.gameScale);
             float scale = 4 * Camera.gameScale;
+
+            Hitbox myHitbox = ((Rigidbody)getTrait("rigidbody")).hitboxes[0];
 
             //Draw Frog Sprites  
             Rectangle DR = new Rectangle(

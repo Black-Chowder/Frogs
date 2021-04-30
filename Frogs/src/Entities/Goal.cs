@@ -80,7 +80,7 @@ namespace Frogs.src.Entities
     public class Goal : Entity
     {
         //Hitbox Variables
-        Hitbox myHitbox = new Hitbox(-20*Camera.gameScale, -20 * Camera.gameScale, 20 * Camera.gameScale, 20 * Camera.gameScale);
+        Hitbox myHitbox;
 
         Boolean foundPlayer = false;
         List<int> playerIndexes;
@@ -94,6 +94,8 @@ namespace Frogs.src.Entities
 
             width = 40 * Camera.gameScale;
             height = 40 * Camera.gameScale;
+
+            myHitbox = new Hitbox(this, -20 * Camera.gameScale, -20 * Camera.gameScale, 20 * Camera.gameScale, 20 * Camera.gameScale);
         }
 
         public override void Update()

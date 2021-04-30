@@ -19,8 +19,8 @@ namespace New_Physics.Entities
             base.height = height;
 
             List<Hitbox> hitboxes = new List<Hitbox>();
-            hitboxes.Add(new Hitbox(0, 0, this.width, this.height));
-            hitboxes.Add(new Hitbox(-25, 50, this.width, 50));
+            hitboxes.Add(new Hitbox(this, 0, 0, this.width, this.height));
+            hitboxes.Add(new Hitbox(this, -25, 50, this.width, 50));
 
             addTrait(new Gravity(this, weight));
             addTrait(new Friction(this, (float)friction));

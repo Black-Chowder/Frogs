@@ -80,6 +80,7 @@
     <Compile Include="src\Entities\Platform.cs" />
     <Compile Include="src\GameHandler.cs" />
     <Compile Include="src\Level_Loader.cs" />
+    <Compile Include="src\Ray.cs" />
     <Compile Include="src\StartScreen.cs" />
     <Compile Include="src\Traits\Friction.cs" />
     <Compile Include="src\Traits\Gravity.cs" />
